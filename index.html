@@ -1,12 +1,31 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Main page</title>
-    <link rel="stylesheet" href="./css/reset.css" />
-    <script type="module" src="./src/main.js"></script>
-  </head>
 
-  <body></body>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Main page</title>
+  <link rel="stylesheet" href="./css/layout.css" />
+  <script type="module" src="./src/search.js"></script>
+</head>
+
+<body>
+  <!-- 상단 타이틀, 검색창 -->
+  <header>
+    <div class="search_banner">
+      <h1 class="search_title"><span style="color:yellow">훌륭한 다섯</span> 영화저장소</h1>
+    </div>
+    <div class="search_box">
+      <input type="text" id="search_input" class="search_input" placeholder="영화를 검색하세요">
+      <button class="search_Btn" id="search_Btn">검색</button>
+      <button Class="refresh_Btn" id="refresh_Btn">전체목록</button>
+    </div>
+  </header>
+
+  <!-- 메인 이미지+랭킹 카드, 영화 카드들 -->
+  <main>
+  </main>
+
+</body>
+
 </html>
