@@ -1,9 +1,127 @@
 <!DOCTYPE html>
-<html lang="en">
-  <head>
+<html lang="ko">
+    <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
-  </head>
-  <body></body>
+    <title>review</title>
+    <link rel="stylesheet" href="./css/review.css" />
+    <script type="module" src="./src/review.js"></script>
+    </head>
+
+
+    <body>
+    <!-- review -->
+        <div class="review" style="min-height: 450px">
+            <span class="tit_netizen">기대 평점
+                <span class="num_rating">0.0점</span>
+                <span class="txt_netizen">(댓글 작성 인원 수)</span>
+            </span>
+            <div class="cmt_netizen">
+            <!-- 별점 -->
+            <div class="rating_area">
+                <div class="star_grade">
+                    <span class="btn_grade on">
+                        <input type="radio" id="inpRating0" class="inp_rating" value="0"/>
+                        <label for="inpRating0" class="lab_rating">0점</label>
+                    </span>
+                    <span class="btn_grade">
+                        <input type="radio" id="inpRating1" class="inp_rating" value="1" name="inpRating1"/>
+                        <label for="inpRating1" class="lab_rating">1점</label>
+                    </span>
+                    <span class="btn_grade btn_r">
+                        <input type="radio" id="inpRating2" class="inp_rating" value="2" />
+                        <label for="inpRating2" class="lab_rating">2점</label>
+                    </span>
+                    <span class="btn_grade">
+                        <input type="radio" id="inpRating3" class="inp_rating" value="3" />
+                        <label for="inpRating3" class="lab_rating">3점</label>
+                    </span>
+                    <span class="btn_grade btn_r">
+                        <input type="radio" id="inpRating4" class="inp_rating" value="4" />
+                        <label for="inpRating4" class="lab_rating">4점</label>
+                    </span>
+                    <span class="btn_grade">
+                        <input type="radio" id="inpRating5" class="inp_rating" value="5" />
+                        <label for="inpRating5" class="lab_rating">5점</label>
+                    </span>
+                    <span class="btn_grade btn_r">
+                        <input type="radio" id="inpRating6" class="inp_rating" value="6" />
+                        <label for="inpRating6" class="lab_rating">6점</label>
+                    </span>
+                    <span class="btn_grade">
+                        <input type="radio" id="inpRating7" class="inp_rating" value="7" />
+                        <label for="inpRating7" class="lab_rating">7점</label>
+                    </span>
+                    <span class="btn_grade btn_r">
+                        <input type="radio" id="inpRating8" class="inp_rating" value="8" />
+                        <label for="inpRating8" class="lab_rating">8점</label>
+                    </span>
+                    <span class="btn_grade">
+                        <input type="radio" id="inpRating9" class="inp_rating" value="9" />
+                        <label for="inpRating9" class="lab_rating">9점</label>
+                    </span>
+                    <span class="btn_grade btn_r">
+                        <input type="radio" id="inpRating10" class="inp_rating" value="10" />
+                        <label for="inpRating10" class="lab_rating">10점</label>
+                    </span>
+                </div>
+                <span>선택 점수 : </span><span class="txt_num">0<span class="screen_out">점</span></span>
+            </div>
+            <!-- 별점 -->
+            <hr>
+            <!-- review 조회 -->
+            <div class="review_container">
+                <!-- review 작성 -->
+                <div class="reply_write_box">
+                    <div id="writeForm_comment" class="write_wrap">
+                    <fieldset> <!-- 그룹화 -->
+                        <legend class="screen_out">댓글 작성</legend> <!-- 그룹 설명 -->
+                        <div class="cont_write">
+                            <!-- 댓글 작성란 -->
+                            <div id="alex_write_box" class="alex_write">
+                                <textarea title="댓글 내용 입력 공간" class="review_review_write_box" id="commentContent"></textarea>
+                            </div>
+                            <!-- 댓글 작성란 -->
+                            <!-- 저장 버튼 -->
+                            <div class="tool_write">
+                                <button class="btn_write" type="submit"><span class="inner_btn">등록</span></button>
+                            </div>
+                            <!-- 저장 버튼 -->
+                        </div>
+                    </fieldset> <!-- 그룹화 -->
+                    </div>
+                </div>
+                <!-- review 작성 -->
+                <hr>
+                <!-- review 상세 조회 -->
+                <ul class="list_comment"> <!-- review list -->
+                    <li class="review_review_container">
+                        <div class="">
+                            <div class="ratings rating_10">별점 : 10</div> <!-- 별점 -->
+                            <p class="review_review_content"> <!-- 댓글 내용 -->
+                                댓글1 댓글1 댓글1 댓글1 댓글1 댓글1 댓글1 댓글1 댓글1 댓글1 댓글1 댓글1 댓글1 댓글1 댓글1 댓글1 댓글1 댓글1 댓글1 댓글1 댓글1 댓글1 
+                                댓글1 댓글1 댓글1 댓글1 댓글1 댓글1 댓글1 댓글1 댓글1 댓글1 댓글1 댓글1 댓글1 댓글1 댓글1 댓글1 댓글1 댓글1 댓글1 댓글1 댓글1 댓글1 
+                            </p>
+                            <span class="screen_out">댓글 작성자 : </span><span>우우</span> <!-- 댓글 작성자 -->
+                            <span class="txt_date">(1시간전)</span> <!-- 댓글 작성 시간 -->
+                        </div>
+                    </li>
+
+                    <li class="review_review_container">
+                        <div class="">
+                            <div class="ratings rating_10">별점 : 10</div> <!-- 별점 -->
+                            <p class="review_review_content"> <!-- 댓글 내용 -->
+                                댓글1 댓글1 댓글1 댓글1 댓글1 댓글1 댓글1 댓글1 댓글1 댓글1 댓글1 댓글1 댓글1 댓글1 댓글1 댓글1 댓글1 댓글1 댓글1 댓글1 댓글1 댓글1 
+                                댓글1 댓글1 댓글1 댓글1 댓글1 댓글1 댓글1 댓글1 댓글1 댓글1 댓글1 댓글1 댓글1 댓글1 댓글1 댓글1 댓글1 댓글1 댓글1 댓글1 댓글1 댓글1 
+                            </p>
+                            <span class="screen_out">댓글 작성자 : </span><span>우우</span> <!-- 댓글 작성자 -->
+                            <span class="txt_date">(1시간전)</span> <!-- 댓글 작성 시간 -->
+                        </div>
+                    </li>
+                </ul>
+                <!-- review 상세 조회 -->
+                <!-- review 조회 -->
+            </div>
+        </div>
+    </body>
 </html>
