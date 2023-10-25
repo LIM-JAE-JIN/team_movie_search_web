@@ -34,7 +34,7 @@ export const generateMovieDetail = async () => {
         </dl>
         <dl class="list_cont">
           <dt>평점</dt>
-          <dd><span class="ico_movie ico_star"></span>${detail.vote_average}</dd>
+          <dd><span class="ico_movie ico_star"></span>${detail.vote_average.toFixed(1)}</dd>
         </dl>
         <dl class="list_cont">
           <dt>언어</dt>
