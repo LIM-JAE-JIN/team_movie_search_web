@@ -1,27 +1,145 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Main page</title>
-    <link rel="stylesheet" href="./css/layout.css" />
-    <script type="module" src="./src/search.js"></script>
-  </head>
 
-  <body>
-    <!-- 상단 타이틀, 검색창 -->
-    <header>
-      <div class="search_banner">
-        <h1 class="search_title"><span style="color: yellow">훌륭한 다섯</span> 영화저장소</h1>
-      </div>
-      <div class="search_box">
-        <input type="text" id="search_input" class="search_input" placeholder="영화를 검색하세요" />
-        <button class="search_Btn" id="search_Btn">검색</button>
-        <button class="refresh_Btn" id="refresh_Btn">전체목록</button>
-      </div>
-    </header>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Main page</title>
+  <link rel="stylesheet" href="./css/layout.css" />
+  <script type="module" src="./src/search.js"></script>
+</head>
 
-    <!-- 메인 이미지+랭킹 카드, 영화 카드들 -->
-    <main></main>
-  </body>
+<body>
+  <header>
+    <!-- 상단 띠배너 -->
+    <div class="search_banner">
+      <h1 class="search_title"> <span style="color: yellow">훌륭한 다섯</span> 영화저장소</h1>
+    </div>
+
+    <!-- 검색창 -->
+    <form class="search_box">
+      <input type="text" id="search_input" class="search_input" placeholder="영화를 검색하세요" />
+      <button type="submit" class="search_Btn" id="search_Btn">
+        <img src="./contents/search.png" alt="검색">
+      </button>
+    </form>
+  </header>
+
+  <main>
+    <!-- 메인 이미지 -->
+    <div class="rank_mainBoard">
+      메인 이미지가 들어갈 자리
+      <div class="mainRankCnt">
+        <h1 class="mainRankTitle">
+          해당 영화 타이틀
+        </h1>
+        <p class="mainRankOverview">
+          80년대에 아이들이 실종되고 폐업한지 오래된 프레디의 피자가게 그곳의 야간 경비 알바를 하게 된 ‘마이크'는 캄캄한 어둠만이 존재하는 줄 알았던 피자가게에서 살아 움직이는 피자가게 마스코트
+          '프레디와 친구들’을 목격한다. 어딘가 기괴하고 섬뜩한 프레디와 친구들이 실체를 드러내기 시작하는데...
+        </p>
+        <button class="mainRankBtn">상세보기</button>
+      </div>
+    </div>
+
+    <!-- 랭킹 카드 영역 -->
+    <div class="rankWrap">
+      <li class="card_li action">
+        <div class="card_poster">
+          <a href="/moviedb/main?movieId=105862" class="card_thumb_item">
+            <div class="card_poster_movie">
+              <img
+                src="https://img1.daumcdn.net/thumb/C408x596/?fname=http%3A%2F%2Ft1.daumcdn.net%2Fmovie%2Faedb117fce8a0888b931e97ebcac1327c98728ce"
+                class="img_thumb" alt="" />
+              <span class="rank_num">1</span>
+            </div>
+          </a>
+        </div>
+        <div class="card_title">
+          <strong>
+            <a half=""> Test 1 </a>
+          </strong>
+        </div>
+      </li>
+      <li class="card_li action">
+        <div class="card_poster">
+          <a href="/moviedb/main?movieId=105862" class="card_thumb_item">
+            <div class="card_poster_movie">
+              <img
+                src="https://img1.daumcdn.net/thumb/C408x596/?fname=http%3A%2F%2Ft1.daumcdn.net%2Fmovie%2Faedb117fce8a0888b931e97ebcac1327c98728ce"
+                class="img_thumb" alt="" />
+              <span class="rank_num">1</span>
+            </div>
+          </a>
+        </div>
+        <div class="card_title">
+          <strong>
+            <a half=""> Test 2 </a>
+          </strong>
+        </div>
+      </li>
+      <li class="card_li action">
+        <div class="card_poster">
+          <a href="/moviedb/main?movieId=105862" class="card_thumb_item">
+            <div class="card_poster_movie">
+              <img
+                src="https://img1.daumcdn.net/thumb/C408x596/?fname=http%3A%2F%2Ft1.daumcdn.net%2Fmovie%2Faedb117fce8a0888b931e97ebcac1327c98728ce"
+                class="img_thumb" alt="" />
+              <span class="rank_num">1</span>
+            </div>
+          </a>
+        </div>
+        <div class="card_title">
+          <strong>
+            <a half=""> Test 3 </a>
+          </strong>
+        </div>
+      </li>
+      <li class="card_li action">
+        <div class="card_poster">
+          <a href="/moviedb/main?movieId=105862" class="card_thumb_item">
+            <div class="card_poster_movie">
+              <img
+                src="https://img1.daumcdn.net/thumb/C408x596/?fname=http%3A%2F%2Ft1.daumcdn.net%2Fmovie%2Faedb117fce8a0888b931e97ebcac1327c98728ce"
+                class="img_thumb" alt="" />
+              <span class="rank_num">1</span>
+            </div>
+          </a>
+        </div>
+        <div class="card_title">
+          <strong>
+            <a half=""> Test 4 </a>
+          </strong>
+        </div>
+      </li>
+      <li class="card_li action">
+        <div class="card_poster">
+          <a href="/moviedb/main?movieId=105862" class="card_thumb_item">
+            <div class="card_poster_movie">
+              <img
+                src="https://img1.daumcdn.net/thumb/C408x596/?fname=http%3A%2F%2Ft1.daumcdn.net%2Fmovie%2Faedb117fce8a0888b931e97ebcac1327c98728ce"
+                class="img_thumb" alt="" />
+              <span class="rank_num">1</span>
+            </div>
+          </a>
+        </div>
+        <div class="card_title">
+          <strong>
+            <a half=""> Test 5 </a>
+          </strong>
+        </div>
+      </li>
+    </div>
+
+    <!-- 카드 뿌리기 영영 ./card.html -->
+    <div>
+      <h3>전체 영화목록</h3>
+      <ol id="card_wrapAllList" class="card_ol"></ol>
+      <div class="card_moreviewbutton">
+        <button id="loadMore" class="card_moreview">More View</button>
+      </div>
+    </div>
+
+  </main>
+</body>
+
 </html>
