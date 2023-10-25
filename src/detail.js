@@ -46,7 +46,7 @@ export const generateMovieDetail = async () => {
         </dl>
         <dl class="list_cont">
           <dt>줄거리</dt>
-          <dd>${detail.overview}</dd>
+          <dd>${detail.overview ? detail.overview : "내용 없음"}</dd>
         </dl>
       </div>
     </div>

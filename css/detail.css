@@ -26,7 +26,7 @@
   margin: 0 auto;
 }
 .detail_cont_wrap figure {
-  width: 210px;
+  width: 310px;
   border-radius: 5px;
   border: 1px solid #eee;
   overflow: hidden;
@@ -100,7 +100,7 @@
   }
   .detail_cont_wrap figure {
     margin: 0 auto;
-    width: 320px;
+    width: 380px;
   }
   .detail_txt_cont {
     width: 100%;
