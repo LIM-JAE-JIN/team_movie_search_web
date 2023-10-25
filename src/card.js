@@ -1,13 +1,20 @@
+// 더보기 사용을 위한 moreview 카운트 선언 가져가야함
+export let currentCount = 0;
+export let loadCount = 5;
+export let loadMoreButton = document.getElementById("loadMore");
+
+// 카드 뿌리기 함수 = 가져가야함
 export const generateMovieCards = async () => {
   const movies = await fetchMovieData();
-
+  let loadMoreButton = document.getElementById("loadMore");
+  let nextMovies = movies.slice(0, currentCount + loadCount); // 0~5번까지
   const cardList = document.querySelector("#card_wrapAllList");
-  cardList.innerHTML = movies
+  cardList.innerHTML = nextMovies
     .map(
       (movie) => `
             <li class="card_li">
             <div class="card_poster">
-              <a href="#" class="card_thumb_item">
+              <a href="./detail.html?detail_id=${movie.id}" class="card_thumb_item">
                 <div class="card_poster_movie">
                   <img
                     src="https://image.tmdb.org/t/p/w500${movie.poster_path}"
@@ -20,15 +27,25 @@ export const generateMovieCards = async () => {
             </div>
             <div class="card_title">
             <strong>
-              <a half="">${movie.title}</a>
+              <a half="./detail.html?detail_id=${movie.id}">${movie.title}</a>
             </strong>
           </div>
           </li>`
     )
     .join("");
+  currentCount = nextMovies.length; // 현재 length를 currentCount로 치환
+  console.log(currentCount);
+
+  // 모든 카드가 표시되었다면 더 보기 버튼 숨기기
+  if (currentCount >= movies.length) {
+    loadMoreButton.style.display = "none";
+  }
 };
 
-async function fetchMovieData() {
+// 더보기 함수를 위한 이벤트리스너
+loadMoreButton.addEventListener("click", generateMovieCards);
+
+export async function fetchMovieData() {
   const options = {
     method: "GET",
     headers: {
