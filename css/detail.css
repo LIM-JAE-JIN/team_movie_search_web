@@ -1,7 +1,7 @@
 .detail_title_wrap {
   position: relative;
   width: 100%;
-  margin: 10px 0 30px;
+  margin: 15px 0 30px;
   display: flex;
   justify-content: space-between;
   align-items: flex-end;
@@ -38,6 +38,10 @@
 .detail_cont_wrap {
   display: flex;
 }
+.detail_txt_cont {
+  width: calc(100% - 250px);
+  position: relative;
+}
 .detail_tit h2 {
   font-size: 30px;
   color: #000;
@@ -58,13 +62,60 @@
 }
 .detail_cont {
   display: flex;
-  padding: 20px 0 48px;
   align-items: flex-start;
+  flex-wrap: wrap;
+  width: 100%;
+  margin-top: 25px;
 }
-.detail_cont .inner_cont {
-  display: table;
-  max-width: 60%;
-}
-.detail_cont .inner_cont .list_cont {
+.detail_cont .list_cont {
   display: flex;
+  width: 50%;
+  margin-bottom: 10px;
+  line-height: 20px;
+}
+.detail_cont .list_cont dt {
+  width: 80px;
+  font-weight: normal;
+  color: #98989c;
+  white-space: nowrap;
+}
+.detail_cont .list_cont dd {
+  color: #000;
+  word-break: break-all;
+  word-wrap: break-word;
+  width: calc(100% - 80px);
+}
+.detail_cont .list_cont:last-child {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+}
+
+@media (max-width: 1100px) {
+  .detail_cont_wrap {
+    flex-wrap: wrap;
+  }
+  .detail_wrap {
+    width: 95%;
+  }
+  .detail_cont_wrap figure {
+    margin: 0 auto;
+    width: 320px;
+  }
+  .detail_txt_cont {
+    width: 100%;
+    margin-top: 20px;
+  }
+  .detail_cont .list_cont:last-child {
+    position: relative;
+    margin-top: 20px;
+  }
+  .detail_tit {
+    text-align: center;
+  }
+}
+@media (max-width: 680px) {
+  .detail_cont .list_cont {
+    width: 100%;
+  }
 }
