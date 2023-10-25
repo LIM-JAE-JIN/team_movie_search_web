@@ -1,7 +1,7 @@
 .detail_title_wrap {
   position: relative;
   width: 100%;
-  margin: 10px 0;
+  margin: 10px 0 30px;
   display: flex;
   justify-content: space-between;
   align-items: flex-end;
@@ -18,19 +18,53 @@
   border: 1px solid #eee;
   color: #333;
   font-size: 14px;
-  cursor: pointer;
+  text-decoration: none;
 }
 .detail_wrap {
   position: relative;
   width: 1100px;
   margin: 0 auto;
 }
-.detail_cont figure {
+.detail_cont_wrap figure {
   width: 210px;
   border-radius: 5px;
   border: 1px solid #eee;
   overflow: hidden;
+  margin-right: 40px;
 }
-.detail_cont figure img {
+.detail_cont_wrap figure img {
   width: 100%;
+}
+.detail_cont_wrap {
+  display: flex;
+}
+.detail_tit h2 {
+  font-size: 30px;
+  color: #000;
+  font-weight: bold;
+  margin-bottom: 6px;
+}
+.detail_tit p {
+  display: block;
+  overflow: hidden;
+  margin-left: 2px;
+  font-size: 16px;
+  line-height: 19px;
+  color: #000;
+  word-break: break-all;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  letter-spacing: -1px;
+}
+.detail_cont {
+  display: flex;
+  padding: 20px 0 48px;
+  align-items: flex-start;
+}
+.detail_cont .inner_cont {
+  display: table;
+  max-width: 60%;
+}
+.detail_cont .inner_cont .list_cont {
+  display: flex;
 }
