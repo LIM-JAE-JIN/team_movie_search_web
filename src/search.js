@@ -1,4 +1,6 @@
 // card.js에서 가져오는 함수
+import { fetchMovieData } from './card.js';
+
 
 // DOM
 const $searchBox = document.querySelector(".search_box");
@@ -24,44 +26,28 @@ let searchedMovie = () => {
     alert(($searchInput.value) + "를(을) 검색한 결과 입니다.");
     $rank_mainBoard.style.display = "none"
     $rankWrap.style.display = "none"
-
-    // return generateMovieCards(searchedList);
   };
 };
 
 // 카드 정보들 다시 가져오기
-async function fetchMovieData() {
-  const options = {
-    method: "GET",
-    headers: {
-      accept: "application/json",
-      Authorization:
-        "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJiY2U4ODA3ZDNkNGUyZTVhY2IxYzk5Mzc2OWQ5N2E3OSIsInN1YiI6IjY1MmYzNjZhYTgwMjM2MDEzNzY4OWE2YyIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.GNyZMpov_2bKO1zPaS3oSUpaq9_6gzs1ULOjbuB1vds"
-    }
-  };
-}
-
-
-
-
+const movieListAll = await fetchMovieData();
+console.log("카드 전체 정보 : " + movieListAll);
 
 // 검색어와 타이틀을 비교하여 저장
 let searchedList = [];
-const cardArray = Array.from($cardList);
-console.log(cardArray);
 
-$searchInput.addEventListener('submit', (event) => {
-  const value = $searchInput.value.toLowerCase();
-  searchedList = cardArray.filter(card => {
-    console.log(card);
-    const movieTitleElement = card.querySelector('.card_title');
+$searchInput.addEventListener('input', (event) => {
+  const value = $searchInput.value.toUpperCase();
+  searchedList = movieListAll.filter(card => {
+    console.log(card.title);
+    const movieTitleElement = card["title"];
+    console.log(movieTitleElement);
     if (movieTitleElement) {
-      const movieTitle = movieTitleElement.textContent.toLocaleLowerCase();
+      const movieTitle = movieTitleElement.toUpperCase();
       return movieTitle.includes(value) ? card : "";
     }
   })
 })
-
 
 
 

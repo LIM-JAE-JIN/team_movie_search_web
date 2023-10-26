@@ -39,10 +39,7 @@ export const generateMovieCards = async () => {
   // 모든 카드가 표시되었다면 더 보기 버튼 숨기기
   if (currentCount >= movies.length) {
     loadMoreButton.style.display = "none";
-  }
-
-  const $cardList = document.querySelectorAll(".card_li");
-  console.log($cardList)
+  };
 };
 
 // 더보기 함수를 위한 이벤트리스너
