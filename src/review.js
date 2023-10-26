@@ -48,13 +48,14 @@ $star_grade_radio.forEach(function (radio) {
 // 현재 시간
 const currentTime = () => {
   const currentDate = new Date();
-  const year = currentDate.getFullYear();
-  const month = currentDate.getMonth() + 1; // 월은 0부터 시작하므로 +1
-  const day = currentDate.getDate();
-  const hours = currentDate.getHours();
-  const minutes = currentDate.getMinutes();
-  const seconds = currentDate.getSeconds();
-  return `(${year}.${month}.${day}   ${hours}:${minutes}:${seconds})` // 데이터 활용할 일 없으므로 텍스트로 저장해버림!!!
+  // const year = currentDate.getFullYear();
+  // const month = currentDate.getMonth() + 1; // 월은 0부터 시작하므로 +1
+  // const day = currentDate.getDate();
+  // const hours = currentDate.getHours();
+  // const minutes = currentDate.getMinutes();
+  // const seconds = currentDate.getSeconds();
+  // return `(${year}.${month}.${day}   ${hours}:${minutes}:${seconds})` // 데이터 활용할 일 없으므로 텍스트로 저장해버림!!!
+  return currentDate;
 }
 
 // 버튼 클릭 이벤트 처리
@@ -113,6 +114,7 @@ let drawHtml = () => {
 
   console.log(localStorageData);
 
+  /*
   localStorageKeys.sort((a, b) => {
     const dateA = new Date(localStorage[a].comment_currentDate);
     const dateB = new Date(localStorage[b].comment_currentDate);
@@ -124,7 +126,46 @@ let drawHtml = () => {
     sortedlocalStorageData[key] = localStorage[key];
   });
 
-  console.log(sortedlocalStorageData);
+  const sortedComments = Object.entries(comments).sort((a, b) => {
+    const dateA = new Date(a[1].comment_currentDate);
+    const dateB = new Date(b[1].comment_currentDate);
+    return dateA - dateB;
+  });
+*/
+
+  // // 객체를 배열로 변환하여 comment_currentDate를 기준으로 정렬
+  // const sortedComments = Object.entries(localStorageData).sort((a, b) => {
+  //   const dateA = new Date(a[1].comment_currentDate);
+  //   const dateB = new Date(b[1].comment_currentDate);
+  //   return dateA - dateB;
+  // });
+
+  // console.log(sortedComments);
+
+  // // 정렬된 배열을 다시 객체로 변환
+  // const sortedlocalStorageData = {};
+  // sortedComments.forEach(([key, value]) => {
+  //   sortedlocalStorageData[key] = value;
+  // });
+
+  // console.log(sortedlocalStorageData);
+
+  // 객체를 Map으로 변환
+  const commentsMap = new Map(Object.entries(localStorageData));
+
+  // Map을 comment_currentDate를 기준으로 정렬
+  const sortedCommentsMap = new Map([...commentsMap.entries()].sort((a, b) => {
+    const dateA = new Date(a[1].comment_currentDate);
+    const dateB = new Date(b[1].comment_currentDate);
+    return dateB - dateA;
+  }));
+
+  console.log(sortedCommentsMap);
+
+  // Map을 객체로 변환
+  // const sortedCommentsObject = Object.fromEntries(sortedCommentsMap);
+
+  // console.log(sortedCommentsObject);
 
   //----- html 추가~~
   const $id_review_list = document.getElementById("review_list");
@@ -141,15 +182,20 @@ let drawHtml = () => {
 
   let countStarScore = 0;
   let count = 0;
+  const valuesIterator = sortedCommentsMap.values(); // 
+  console.log(valuesIterator);
   // 모든 댓글 추가
-  for (const key in sortedlocalStorageData) {
+  for (const value of valuesIterator) {
+
     // localStorageData의 행수만큼 반복 실행!
     count++;
+    // const comment = sortedCommentsMap[key];
+    console.log(value);
     let temp_html = `
     <li class="review_comment_wrapper">
     <div class="review_comment_box">
       <div class="review_comment_box_header">
-        <div class="star_grade">별점 : ${localStorageData[key].comment_star_score}</div>
+        <div class="star_grade">별점 : ${value.comment_star_score}</div>
         <div class="review_edit_wrapper" >
           <button class="review_edit_btn" data-target="review_modal_edit${count}">...........</button>
           <div class="review_edit_btn_wrapper" id="review_modal_edit${count}" display="none">
@@ -158,11 +204,11 @@ let drawHtml = () => {
           </div>
         </div>
       </div>
-      <p class="review_comment_box_content">${localStorageData[key].comment_comment}</p>
+      <p class="review_comment_box_content">${value.comment_comment}</p>
       <div class="review_comment_box_bottom">
         <span class="review_comment_id"></span>
-        <span class="review_comment_id">${localStorageData[key].comment_id}</span>
-        <span class="review_comment_date">${localStorageData[key].comment_currentDate}</span>
+        <span class="review_comment_id">${value.comment_id}</span>
+        <span class="review_comment_date">${value.comment_currentDate}</span>
       </div>
     </div>
   </li>
@@ -172,7 +218,7 @@ let drawHtml = () => {
     // $id_review_modal_edit.style.display = "none";
 
     $id_review_list.insertAdjacentHTML('beforeend', temp_html);// @@.insertAdjacentHTML('beforeend', temp_html) : @@의 마지막 요소 뒤에 temp_html 삽입
-    countStarScore += Number(localStorageData[key].comment_star_score);
+    countStarScore += Number(value.comment_star_score);
   };
   $id_avg_star_score.innerText = `${(countStarScore / countReview).toFixed(1)}점`;
 }
