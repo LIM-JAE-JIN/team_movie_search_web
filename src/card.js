@@ -62,5 +62,3 @@ export async function fetchMovieData() {
   const data = await response.json();
   return data.results;
 }
-
-generateMovieCards();

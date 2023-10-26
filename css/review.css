@@ -8,10 +8,64 @@
   width: 810px;
 }
 
-.review_review_container {
+.review_reply_container {
   border: 1px solid blue;
 }
 
-.review_review_write_box {
-  width: 90%;
+.review_reply_write_text {
+  width: 99%;
 }
+
+.review_reply_write_container {
+}
+
+.review_reply_list {
+  padding: 0;
+  margin: 0;
+}
+
+.review_reply_list > li {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.review_reply_box_header {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.review_reply_date {
+  color: gray;
+}
+
+.review_reply_id {
+  font-weight: bold;
+  font-size: 17.5px;
+}
+
+/*
+
+.cmt_netizen .alex_single .ratings:after {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 14px;
+    background: url(https://t1.daumcdn.net/movie/images/pc/ico_stargrade.png) 0 -20px no-repeat;
+    content: '';
+}
+
+.cmt_netizen .alex_single .ratings {
+    position: relative;
+    width: 100px;
+    height: 14px;
+    padding-left: 80px;
+    margin-bottom: 14px;
+    font-family: 'Helvetica Neue',sans-serif;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 15px;
+    background: url(https://t1.daumcdn.net/movie/images/pc/ico_stargrade.png) 0 0 no-repeat;
+}
+*/
