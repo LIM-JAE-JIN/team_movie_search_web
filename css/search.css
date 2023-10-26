@@ -12,10 +12,13 @@
     display: block;
     position: relative;
     height: 38px;
+    width: auto;
+
     padding: 17px 29px 0;
     text-align: center;
     text-decoration: none;
     
+    cursor: pointer;
 }
 
 /* 검색창 부분 */
@@ -63,7 +66,7 @@
     position: relative;
     max-width: 1960px;
     height: 730px;
-    margin: 20px auto;
+    margin: 20px auto 20px;
     background: #313137;
 
     color: aliceblue;
@@ -113,7 +116,7 @@
 }
 
 .rankWrap{
-    margin: -256px auto 0; 
+    margin: -256px auto 50px; 
     width: 1120px;
 
     list-style: none;
