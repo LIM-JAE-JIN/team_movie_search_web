@@ -1,47 +1,44 @@
 /* 최상단 띄배너 영역 */
 .search_banner {
-
-    border-top: 10px solid #222;
-    background-color: #222;
-
+  border-top: 10px solid #222;
+  background-color: #222;
 }
 
 /* 띠배너 안 타이틀 내용 */
-.search_title{
-    color: white;
+.search_title {
+  color: white;
 
-    display: block;
-    position: relative;
-    height: 38px;
-    padding: 17px 29px 0;
-    text-align: center;
-    text-decoration: none;
-    
+  display: block;
+  position: relative;
+  height: 38px;
+  padding: 17px 29px 0;
+  text-align: center;
+  text-decoration: none;
 }
 
 /* 검색창 부분 */
 .search_box {
-    background-color: yellow ;
+  background-color: yellow;
 
-    height: 40px;
-    width: 35%;
+  height: 40px;
+  width: 35%;
 
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: center;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
 
-    margin: 20px auto 20px auto;
+  margin: 20px auto 20px auto;
 }
 
 .search_input {
-    display: block;
-    width: 100%;
-    height: 100%;
-    border: 0 none;
-    border-bottom: 2px solid #222;
-    outline: 0 none;
-    font-weight: 100;
-    font-size: 18px;
-    color: #000; 
+  display: block;
+  width: 100%;
+  height: 100%;
+  border: 0 none;
+  border-bottom: 2px solid #222;
+  outline: 0 none;
+  font-weight: 100;
+  font-size: 18px;
+  color: #000;
 }
