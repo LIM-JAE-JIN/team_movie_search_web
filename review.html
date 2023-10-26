@@ -5,115 +5,91 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>review v1</title>
     <link rel="stylesheet" href="./css/review.css" />
-    <script type="module" src="./src/review.js"></script>
   </head>
 
   <body class="review_body">
     <!-- 여기부터 detail.html 하단에 들어갑니다 !!!!! -->
     <!-- review -->
-    <div class="review" style="min-height: 450px">
+    <!-- <div class="review" style="min-height: 450px"> -->
+    <div class="review">
       <!-- review 요약 -->
-      <span class="tit_netizen"
-        >기대 평점 :
-        <span id="avg_star_score">0.0점</span>
-        <span id="count_review"></span>
-      </span>
-    </div>
-    <!-- /review 요약 -->
-    <!-- 별점 -->
-    <div class="rating_area">
-      <div class="star_grade">
-        <span class="btn_grade on">
-          <input type="radio" name="star_grade" id="inpRating0" class="inp_rating" value="0" />
-          <label for="inpRating0" class="lab_rating">0점</label>
-        </span>
-        <span class="btn_grade">
-          <input type="radio" name="star_grade" id="inpRating1" class="inp_rating" value="1" />
-          <label for="inpRating1" class="lab_rating">1점</label>
-        </span>
-        <span class="btn_grade">
-          <input type="radio" name="star_grade" id="inpRating2" class="inp_rating" value="2" />
-          <label for="inpRating2" class="lab_rating">2점</label>
-        </span>
-        <span class="btn_grade">
-          <input type="radio" name="star_grade" id="inpRating3" class="inp_rating" value="3" />
-          <label for="inpRating3" class="lab_rating">3점</label>
-        </span>
-        <span class="btn_grade">
-          <input type="radio" name="star_grade" id="inpRating4" class="inp_rating" value="4" />
-          <label for="inpRating4" class="lab_rating">4점</label>
-        </span>
-        <span class="btn_grade">
-          <input type="radio" name="star_grade" id="inpRating5" class="inp_rating" value="5" />
-          <label for="inpRating5" class="lab_rating">5점</label>
-        </span>
-        <span class="btn_grade btn_r">
-          <input type="radio" name="star_grade" id="inpRating6" class="inp_rating" value="6" />
-          <label for="inpRating6" class="lab_rating">6점</label>
-        </span>
-        <span class="btn_grade">
-          <input type="radio" name="star_grade" id="inpRating7" class="inp_rating" value="7" />
-          <label for="inpRating7" class="lab_rating">7점</label>
-        </span>
-        <span class="btn_grade">
-          <input type="radio" name="star_grade" id="inpRating8" class="inp_rating" value="8" />
-          <label for="inpRating8" class="lab_rating">8점</label>
-        </span>
-        <span class="btn_grade">
-          <input type="radio" name="star_grade" id="inpRating9" class="inp_rating" value="9" />
-          <label for="inpRating9" class="lab_rating">9점</label>
-        </span>
-        <span class="btn_grade">
-          <input type="radio" name="star_grade" id="inpRating10" class="inp_rating" value="10" checked />
-          <label for="inpRating10" class="lab_rating">10점</label>
-        </span>
-        <span>(</span><span id="select_star_grade">10</span><span>점)</span>
+      <div class="review_title_wrapper">
+        <span class="review_title_text">기대 평점</span>
+        <span id="review_avg_star_score" class="review_avg_star_score"><!-- 별점 평균 점수 --></span>
+        <span id="review_count_review" class="review_count_review"><!-- 댓글 작성 인원--></span>
       </div>
-    </div>
-    <!-- /별점 -->
-    <hr />
-    <!-- review 작성/조회-->
-    <div class="review_container">
-      <!-- review 작성 -->
-      <div class="review_reply_write_container">
-        <!-- 그룹화 -->
-        <fieldset>
-          <!-- 그룹 설명 -->
-          <legend class="screen_out">댓글 작성</legend>
-          <!-- 댓글 작성란 -->
-          <div id="review_reply_write_box" class="">
-            <textarea
-              id="review_reply_write_text"
-              class="review_reply_write_text"
-              rows="5"
-              placeholder="댓글을 작성해주세요."
-            ></textarea>
-            <span>아이디 : </span><input id="review_reply_id" /> <span>비밀번호 : </span><input id="review_reply_pw" />
+
+      <!-- /review 요약 -->
+      <!-- 별점 -->
+      <div class="review_star_grade_container"></div>
+      <!-- /별점 -->
+      <!-- review 작성/조회-->
+      <div class="review_container">
+        <!-- review 작성 -->
+        <div class="review_write_wrapper">
+          <div class="review_write_comment_wrapper">
+            <!-- 그룹화 -->
+            <fieldset>
+              <div class="review_star_grade_wrapper">
+                <input type="radio" name="review_star_grade" id="star1" class="hidden_radio" value="1" checked />
+                <label for="star1" class="custom_star" data-image="/contents/star1_y.png"></label
+                ><input type="radio" name="review_star_grade" id="star2" class="hidden_radio" value="2" />
+                <label for="star2" class="custom_star" data-image="/contents/star1_y.png"></label>
+                <input type="radio" name="review_star_grade" id="star3" class="hidden_radio" value="3" />
+                <label for="star3" class="custom_star" data-image="/contents/star1_y.png"></label>
+                <input type="radio" name="review_star_grade" id="star4" class="hidden_radio" value="4" />
+                <label for="star4" class="custom_star" data-image="/contents/star1_y.png"></label>
+                <input type="radio" name="review_star_grade" id="star5" class="hidden_radio" value="5" checked />
+                <label for="star5" class="custom_star" data-image="/contents/star1_y.png"></label>
+                <img id="radio_image" src="" />
+                <span id="review_select_star_grade">5</span>
+              </div>
+              <hr />
+              <!-- 댓글 작성란 -->
+              <!-- <div id="review_write_comment" class="review_write_comment"> -->
+              <textarea
+                id="review_write_comment"
+                class="review_write_comment"
+                rows="5"
+                placeholder="댓글을 작성해주세요."
+                spellcheck="false"
+              ></textarea>
+              <!-- </div> -->
+              <!-- /댓글 작성란 -->
+            </fieldset>
+            <!-- 그룹화 -->
+          </div>
+          <div class="review_write_etc_wrapper">
+            <span>아이디</span><input id="review_write_id" /> <span>비밀번호</span
+            ><input type="password" id="review_write_pw" />
             <button id="submit_btn" type="button">등록</button>
           </div>
-          <!-- /댓글 작성란 -->
-        </fieldset>
-      </div>
-      <!-- review 작성 -->
-      <hr />
-      <!-- review list 조회 -->
-      <ul id="review_reply_list" class="review_reply_list">
-        <!--<li class="review_reply_container">
-            <div class="review_reply_box">
-              <div class="review_reply_box_header">
-                <div class="ratings rating_10">별점 : ${localStorageData[key].reply_star_score}</div>
-                <button class="edit_btn">...</button>
+        </div>
+        <!-- review 작성 -->
+        <hr />
+        <!-- review list 조회 -->
+        <ul id="review_list" class="review_list">
+          <li class="review_comment_wrapper">
+            <div class="review_comment_box">
+              <div class="review_comment_box_header">
+                <div class="star_grade">별점 : ${localStorageData[key].comment_star_score}</div>
+                <button id="review_edit_btn">...</button>
+                <div id="review_modal_edit"></div>
               </div>
-              <p class="review_review_content">${localStorageData[key].reply_comment}</p>
-              <span class="screen_out">댓글 작성자 : </span><span>${localStorageData[key].reply_id}</span>
-              <span class="txt_date">${localStorageData[key].reply_currentDate}</span>
+              <p class="review_comment_box_content">${localStorageData[key].comment_comment}</p>
+              <div class="review_comment_box_bottom">
+                <span class="review_comment_id">댓글 작성자 : </span
+                ><span class="review_comment_id">${localStorageData[key].comment_id}</span>
+                <span class="review_comment_date">${localStorageData[key].comment_currentDate}</span>
+              </div>
             </div>
-          </li> -->
-      </ul>
-      <!-- /review list 조회 -->
+          </li>
+        </ul>
+        <!-- /review list 조회 -->
+      </div>
+      <!-- /review 작성/조회 -->
     </div>
-    <!-- /review 작성/조회 -->
-
     <!-- /review -->
+    <script type="module" src="./src/review.js"></script>
   </body>
 </html>
