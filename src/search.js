@@ -1,12 +1,12 @@
 // card.js에서 가져오는 함수
-import { generateMovieCards } from "./card.js"; // 카드 뿌려주는 함수
+// import { generateMovieCards } from "./card.js"; // 카드 뿌려주는 함수
 
 // DOM
 const $searchBox = document.querySelector(".search_box");
 const $searchInput = document.getElementById("search_input");
 const $rank_mainBoard = document.querySelector(".rank_mainBoard");
 const $rankWrap = document.querySelector(".rankWrap");
-const $cardList = document.querySelectorAll(".card_li");
+
 const $topTitle = document.querySelector('.search_title');
 
 
@@ -26,7 +26,7 @@ let searchedMovie = () => {
         $rank_mainBoard.style.display = "none"
         $rankWrap.style.display = "none"
 
-        return generateMovieCards(searchedList);
+        // return generateMovieCards(searchedList);
     };
 };
 
