@@ -1,5 +1,5 @@
 // card.js에서 가져오는 함수
-// import { generateMovieCards } from "./card.js"; // 카드 뿌려주는 함수
+import { fetchMovieData } from "./card.js"; // 카드 뿌려주는 함수
 
 // DOM
 const $searchBox = document.querySelector(".search_box");
