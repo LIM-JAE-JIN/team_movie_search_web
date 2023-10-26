@@ -8,10 +8,7 @@ const $id_select_star_grade = document.getElementById("select_star_grade");
 const $id_count_review = document.getElementById("count_review");
 const $id_avg_star_score = document.getElementById("avg_star_score");
 
-// 페이지 갱신 이벤트
-document.addEventListener("DOMContentLoaded", function () {
-  drawHtml();
-});
+
 
 // 별점 계산
 $star_grade_radio.forEach(function (radio) {
@@ -123,4 +120,5 @@ let drawHtml = () => {
   $id_avg_star_score.innerText = `${(countStarScore / countReview).toFixed(1)} 점`;
 }
 
-
+// export { };
+// 선언된 너네 나가서 다른 파일에서 쓰이거라!!?

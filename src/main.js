@@ -1,2 +1,4 @@
-import { generateMovieCards} from './card.js' 
+
+import { generateMovieCards } from './card.js'
 generateMovieCards();
+
