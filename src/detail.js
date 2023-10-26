@@ -52,7 +52,6 @@ export const generateMovieDetail = async () => {
     </div>
   `;
 };
-generateMovieDetail();
 
 async function fetchDetailData(movie_id) {
   const options = {
