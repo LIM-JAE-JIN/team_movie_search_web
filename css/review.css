@@ -201,7 +201,7 @@ hr {
   background-color: white;
   border: none;
 
-  z-index: 100;
+  z-index: 1;
 }
 
 .review_modal_delete_btn {
@@ -210,8 +210,19 @@ hr {
   margin: 5px 0px;
   background-color: white;
   border: none;
+  z-index: 1;
+}
 
-  z-index: 100;
+.review_modal_etc {
+  width: 400px;
+  height: 20px;
+  border: 1px solid blue;
+
+  position: absolute;
+  right: 0;
+  display: flex;
+  flex-direction: row;
+  z-index: 2;
 }
 /*
 

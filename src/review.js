@@ -172,8 +172,13 @@ let drawHtml = () => {
             <img src="./contents/review_btn.png" alt="Button Icon" />
           </button>
           <div class="review_edit_btn_wrapper" id="review_modal_edit${count}">
-            <button class="review_modal_edit_btn"> 수정하기 </button>
-            <button class="review_modal_delete_btn"> 삭제하기 </button>
+            <button class="review_modal_edit_btn" id="review_edit_btn1${count}"> 수정하기 </button>
+            <button class="review_modal_delete_btn" id="review_delete_btn1${count}"> 삭제하기 </button>
+            <div class="review_modal_etc">
+              <span>아이디</span><input id="review_edit_id" /> <span>비밀번호</span
+              ><input type="password" id="review_edit_pw" />
+              <button id="submit_btn" type="button">등록</button>
+            </div>
           </div>
         </div>
       </div>
