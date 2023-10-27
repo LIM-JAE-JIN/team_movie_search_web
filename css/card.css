@@ -22,7 +22,6 @@
   margin-right: 20px;
   margin-top: 20px;
   overflow: hidden;
-  flex: 1 1 auto;
   text-align: center;
 }
 
@@ -31,6 +30,7 @@
   width: 204px;
   overflow: hidden;
   transition: transform 0.3s ease;
+  border-radius: 10px;
 }
 
 .card_li:hover .img_thumb {
