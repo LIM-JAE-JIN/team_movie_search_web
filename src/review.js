@@ -172,12 +172,12 @@ let drawHtml = () => {
             <img src="./contents/review_btn.png" alt="Button Icon" />
           </button>
           <div class="review_edit_btn_wrapper" id="review_modal_edit${count}">
-            <button class="review_modal_edit_btn" id="review_edit_btn1${count}"> 수정하기 </button>
+            <button class="review_modal_edit_btn" id="review_edit_btn1${count}" data-target="review_etc_modal${count}"> 수정하기 </button>
             <button class="review_modal_delete_btn" id="review_delete_btn1${count}"> 삭제하기 </button>
-            <div class="review_modal_etc">
-              <span>아이디</span><input id="review_edit_id" /> <span>비밀번호</span
-              ><input type="password" id="review_edit_pw" />
-              <button id="submit_btn" type="button">등록</button>
+            <div class="review_modal_etc" id="review_etc_modal${count}" >
+              <span>아이디</span><input id="review_edit_id${count}" class="review_etc_input" /> 
+              <span>비밀번호</span><input type="password" id="review_edit_pw${count}" class="review_etc_input" />
+              <button id="submit_btn${count}" class="submit_btn" type="button">등록</button>
             </div>
           </div>
         </div>
@@ -203,7 +203,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
   $edit_btn.forEach((button) => {
     button.addEventListener("click", () => {
-      console.log("버튼이 클릭되었습니다.");
+      console.log("... 버튼이 클릭되었습니다.");
       const target = button.getAttribute("data-target");
       const modal = document.getElementById(target);
 
@@ -225,15 +225,13 @@ document.addEventListener("DOMContentLoaded", function () {
       const target = button.getAttribute("data-target");
       const modal = document.getElementById(target);
 
-      if (modal) {
-        if (modal.style.display === "none" || modal.style.display === "") {
-          modal.style.display = "block"; // 표시
-        } else {
-          modal.style.display = "none"; // 숨김
-        }
+
+      if (modal.style.display === "none" || modal.style.display === "") {
+        modal.style.display = "block"; // 표시
       } else {
-        console.log(`ID가 '${target}'인 요소를 찾을 수 없습니다.`);
+        modal.style.display = "none"; // 숨김
       }
-    });
+    }
+    );
   });
 });
