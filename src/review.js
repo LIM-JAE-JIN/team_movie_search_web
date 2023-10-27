@@ -75,7 +75,8 @@ $id_submit_btn.addEventListener("click", function (event) {
 });
 
 let commentsMap;
-
+let valuesIterator;
+let sortedCommentsMap;
 // html에서 review 조회하는 함수
 let drawHtml = () => {
   // localStorage에 저장된 모든 값들을 불러오기
@@ -90,7 +91,7 @@ let drawHtml = () => {
   commentsMap = new Map(Object.entries(localStorageData));
 
   // Map을 comment_currentDate를 기준으로 정렬
-  const sortedCommentsMap = new Map([...commentsMap.entries()].sort((a, b) => {
+  sortedCommentsMap = new Map([...commentsMap.entries()].sort((a, b) => {
     const dateA = new Date(a[1].comment_currentDate);
     const dateB = new Date(b[1].comment_currentDate);
     return dateB - dateA;
@@ -111,7 +112,7 @@ let drawHtml = () => {
 
   let countStarScore = 0;
   let count = 0;
-  const valuesIterator = sortedCommentsMap.values(); // map의 value 값으로 배열 생성
+  valuesIterator = sortedCommentsMap.values(); // map의 value 값으로 배열 생성
 
   // 모든 댓글 추가
   for (const value of valuesIterator) {
@@ -230,7 +231,7 @@ document.addEventListener("DOMContentLoaded", function () {
   $buttons.forEach((button) => {
     button.addEventListener("click", () => {
       // 선택한 댓글의 key값 가져오기
-      const selectKey = [...commentsMap.keys()][target_num];
+      const selectKey = sortedCommentsMap[0];
       console.log(selectKey);
 
       // 선택한 댓글의 비밀번호 가져오기
@@ -244,13 +245,7 @@ document.addEventListener("DOMContentLoaded", function () {
       console.log(input_edit_pw);
 
       if (selectValue != input_edit_pw) {
-        alert("비밀번호가 다르잖습니까!!");
-      } else if (edit_stats === "edit") {
-        // 수정일 때
-        console.log("수정 버튼이 클릭되었습니다.");
-        // review_modal_etc를 감춤
-        // 별점과 댓글을 수정하는 창을 감춤 해제
-
+        console.log("비밀번호가 다르잖습니까!!");
       } else if (edit_stats === "delete") {
         // 삭제일 때
         console.log("삭제 버튼이 클릭되었습니다.");
