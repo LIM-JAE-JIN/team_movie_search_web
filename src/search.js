@@ -18,7 +18,7 @@ $topTitle.addEventListener('click', function () {
 });
 
 // 카드 정보들 다시 가져오기
-const movieListAll = await fetchMovieData(); // card.jsㅕ에서 fetch 데이터 가져옴
+const movieListAll = await fetchMovieData(); // card.js에서 fetch 데이터 가져옴
 console.log(movieListAll);
 
 // ======= 메인 =========
@@ -52,6 +52,7 @@ top5Movie.forEach((movie, idx) => {
 </li>`;
   $rankWrap.innerHTML += rankHTML;
 });
+
 // 2) 랭킹 카드에 마우스를 가져다대면 메인 이미지, 타이틀, 바뀌기
 // 해당 카드의 id 값으로 매칭하여 값을 불러오기?
 
