@@ -4,26 +4,13 @@ const $id_submit_btn = document.getElementById("submit_btn");
 const $review_write_id = document.getElementById("review_write_id");
 const $review_write_pw = document.getElementById("review_write_pw");
 const $id_review_write_comment = document.getElementById("review_write_comment");
-// 별점
-const $star_grade_radio = document.getElementsByName("review_star_grade");
-const $id_select_star_grade = document.getElementById("review_select_star_grade");
-const $radio_buttons = document.querySelectorAll('input[type="radio"]');
-const $id_radio_image = document.getElementById('radio_image');
+
 // 평균/합계
 const $id_count_review = document.getElementById("review_count_review");
-const $id_avg_star_score = document.getElementById("review_avg_star_score");
 
 // 페이지 갱신 이벤트
 document.addEventListener("DOMContentLoaded", function () {
   drawHtml();
-});
-
-// 별점 계산
-$star_grade_radio.forEach(function (radio) {
-  radio.addEventListener("change", function () {
-    const starScore = radio.value;
-    $id_select_star_grade.innerText = starScore;
-  });
 });
 
 // 현재 시간
@@ -47,20 +34,11 @@ $id_submit_btn.addEventListener("click", function (event) {
   } else if (commentPw === "") {
     alert("비밀번호를 입력해주세요!");
   } else {
-    let starScore;
-    for (const radio of $star_grade_radio) {
-      if (radio.checked) {
-        starScore = radio.value;
-        break;
-      }
-    }
-
     // 입력 값들 객체에 넣기
     const comment = {
       // movie_id,
       comment_id: commentId,
       comment_pw: commentPw,
-      comment_star_score: starScore,
       comment_comment: formattedText,
       comment_currentDate: currentTime()
     }
@@ -108,9 +86,8 @@ let drawHtml = () => {
   // $id_review_comment_write_text.value = ''; // 댓글 추가 작성 가능할 것 같아 일단 주석
 
   const countReview = Object.keys(localStorageData).length; // 댓글 수 계산
-  $id_count_review.innerText = `(${countReview}명)`;
+  $id_count_review.innerText = `현재 댓글 수 : ${countReview}`;
 
-  let countStarScore = 0;
   let count = 0;
   valuesIterator = sortedCommentsMap.values(); // map의 value 값으로 배열 생성
 
@@ -122,21 +99,6 @@ let drawHtml = () => {
     let temp_html = `
     <li class="review_comment_wrapper">
     <div class="review_comment_box">
-      <div class="review_comment_box_header">
-        <div class="star_grade">별점 : ${value.comment_star_score}</div>
-        <div class="review_edit_wrapper" >
-          <button class="review_edit_btn" data-target="review_modal_edit${count}">
-            <img src="./contents/review_btn.png" alt="Button Icon" />
-          </button>
-          <div class="review_edit_btn_wrapper" id="review_modal_edit${count}">
-            <button class="review_modal_delete_btn" id="review_delete_btn1${count}" data-target="review_etc_modal${count}"> 삭제하기 </button>
-          </div>
-          <div class="review_modal_etc" id="review_etc_modal${count}" >
-              <span>비밀번호</span><input type="password" id="review_edit_pw${count}" class="review_etc_input" />
-              <button id="submit_btn${count}" class="submit_btn" type="button">확인</button>
-            </div>
-        </div>
-      </div>
       <p class="review_comment_box_content">${value.comment_comment}</p>
       <div class="review_comment_box_bottom">
         <span class="review_comment_id" id="review_comment_id${count}">${value.comment_id}</span>
@@ -147,88 +109,5 @@ let drawHtml = () => {
     `;
 
     $id_review_list.insertAdjacentHTML('beforeend', temp_html);// @@.insertAdjacentHTML('beforeend', temp_html) : @@의 마지막 요소 뒤에 temp_html 삽입
-    countStarScore += Number(value.comment_star_score);
   };
-  $id_avg_star_score.innerText = `${(countStarScore / countReview).toFixed(1)}점`;
 }
-
-// ... 버튼을 눌렀을 때
-document.addEventListener("DOMContentLoaded", function () {
-  const $edit_btn = document.querySelectorAll('.review_edit_btn');
-  $edit_btn.forEach((button) => {
-    button.addEventListener("click", () => {
-      console.log("... 버튼이 클릭되었습니다.");
-      const target = button.getAttribute("data-target");
-      const modal = document.getElementById(target);
-
-      // edit
-      if (modal.style.display === "none" || modal.style.display === "") {
-        modal.style.display = "block"; // 표시
-      } else {
-        modal.style.display = "none"; // 숨김
-      }
-
-      // 계정 입력 modal 숨김
-      const target_btn = target.replace("review_modal_edit", "review_etc_modal");
-      const $review_edit_btn = document.getElementById(target_btn);
-      $review_edit_btn.style.display = "none";
-    });
-  });
-});
-
-let edit_stats;
-let target;
-let target_num;
-
-// 삭제하기 버튼을 눌렀을 때
-document.addEventListener("DOMContentLoaded", function () {
-  const $modal_edit_btn = document.querySelectorAll('.review_modal_delete_btn');
-
-  $modal_edit_btn.forEach((button) => {
-    button.addEventListener("click", () => {
-      console.log("삭제하기 버튼이 클릭되었습니다.");
-      target = button.getAttribute("data-target");
-      target_num = target.slice(-1);
-      // 의 id 조회한 후 숨기기
-      const modal = document.getElementById(target);
-      modal.style.display = "block";
-      // 편집 modal의 id 조회한 후 숨기기
-      const target_btn = target.replace("review_etc_modal", "review_modal_edit");
-      const $review_edit_btn = document.getElementById(target_btn);
-      $review_edit_btn.style.display = "none";
-
-      edit_stats = "delete";
-    });
-  });
-});
-
-// 댓글 편집 시 확인 버튼을 눌렀을 때
-document.addEventListener("DOMContentLoaded", function () {
-  const $buttons = document.querySelectorAll('.submit_btn');
-
-  $buttons.forEach((button) => {
-    button.addEventListener("click", () => {
-      // 선택한 댓글의 key값 가져오기
-      const selectKey = sortedCommentsMap[0];
-      console.log(selectKey);
-
-      // 선택한 댓글의 비밀번호 가져오기
-      const selectValue = [...commentsMap.values()][target_num].comment_pw;
-      console.log(selectValue);
-
-      // 작성한 비밀번호 가져오기
-      const target_pw = target.replace("review_etc_modal", "review_edit_pw");
-      const $review_edit_pw = document.getElementById(target_pw);
-      const input_edit_pw = $review_edit_pw.value
-      console.log(input_edit_pw);
-
-      if (selectValue != input_edit_pw) {
-        console.log("비밀번호가 다르잖습니까!!");
-      } else if (edit_stats === "delete") {
-        // 삭제일 때
-        console.log("삭제 버튼이 클릭되었습니다.");
-        // localStorage.removeItem('key');
-      }
-    });
-  });
-});
