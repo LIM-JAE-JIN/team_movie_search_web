@@ -5,7 +5,7 @@ export const movies = await fetchMovieData();
 
 export const generateMovieCards = async (movies) => {
   const cardList = document.querySelector("#card_wrapAllList");
-  movies.sort((a, b) => a.vote_average - b.vote_average);
+  movies.sort((a, b) => b.vote_count - a.vote_count);
   cardList.innerHTML = movies
     .map(
       (movie) => `
