@@ -8,6 +8,15 @@ const $id_review_write_comment = document.getElementById("review_write_comment")
 // 평균/합계
 const $id_count_review = document.getElementById("review_count_review");
 
+// 영화 아이디 가져오기
+// URL에서 쿼리 문자열을 가져옵니다
+let queryString = window.location.search;
+// URLSearchParams 객체를 사용하여 쿼리 문자열을 파싱합니다
+let searchParams = new URLSearchParams(queryString);
+// detail_id 매개변수의 값을 가져옵니다
+let myMovieId = parseInt(searchParams.get("detail_id"));
+console.log(myMovieId)
+
 // 페이지 갱신 이벤트
 document.addEventListener("DOMContentLoaded", function () {
   drawHtml();
@@ -22,6 +31,7 @@ const currentTime = () => {
 // 버튼 클릭 이벤트 처리
 $id_submit_btn.addEventListener("click", function (event) {
   // 입력 값 가져오기
+  const movieId = myMovieId;
   const commentId = $review_write_id.value;
   const commentPw = $review_write_pw.value;
   const commentText = $id_review_write_comment.value;
@@ -36,7 +46,7 @@ $id_submit_btn.addEventListener("click", function (event) {
   } else {
     // 입력 값들 객체에 넣기
     const comment = {
-      // movie_id,
+      movie_id: myMovieId,
       comment_id: commentId,
       comment_pw: commentPw,
       comment_comment: formattedText,
@@ -78,36 +88,42 @@ let drawHtml = () => {
   //----- html 추가~~
   const $id_review_list = document.getElementById("review_list");
 
-
   // 모든 입력 text 초기화
   $id_review_list.innerHTML = ''; // review_comment_list(ul)의 하위 html 모두 지우기
   $id_review_write_comment.value = '';
   // $review_comment_id.value = ''; // 댓글 추가 작성 가능할 것 같아 일단 주석
   // $id_review_comment_write_text.value = ''; // 댓글 추가 작성 가능할 것 같아 일단 주석
 
-  const countReview = Object.keys(localStorageData).length; // 댓글 수 계산
-  $id_count_review.innerText = `현재 댓글 수 : ${countReview}`;
-
   let count = 0;
   valuesIterator = sortedCommentsMap.values(); // map의 value 값으로 배열 생성
 
   // 모든 댓글 추가
   for (const value of valuesIterator) {
-    // valuesIterator의 행수만큼 반복 실행!
-    count++;
-    // const comment = sortedCommentsMap[key];
-    let temp_html = `
+    if (value.movie_id === myMovieId) {
+      // valuesIterator의 행수만큼 반복 실행!
+      count++;
+      // const comment = sortedCommentsMap[key];
+      let temp_html = `
     <li class="review_comment_wrapper">
-    <div class="review_comment_box">
-      <p class="review_comment_text">${value.comment_comment}</p>
-      <div class="review_comment_box_bottom">
-        <span class="review_comment_id" id="review_comment_id${count}">${value.comment_id}</span>
-        <span class="review_comment_date" id="review_comment_pw${count}">${value.comment_currentDate}</span>
+      <div class="review_comment_box">
+        <p class="review_comment_text">${value.comment_comment}</p>
+        <div class="review_comment_box_bottom">
+          <span class="review_comment_id" id="review_comment_id${count}">${value.comment_id}</span>
+          <span class="review_comment_date" id="review_comment_pw${count}">${value.comment_currentDate}</span>
+        </div>
       </div>
-    </div>
-  </li>
+    </li>
     `;
 
-    $id_review_list.insertAdjacentHTML('beforeend', temp_html);// @@.insertAdjacentHTML('beforeend', temp_html) : @@의 마지막 요소 뒤에 temp_html 삽입
+      $id_review_list.insertAdjacentHTML('beforeend', temp_html);// @@.insertAdjacentHTML('beforeend', temp_html) : @@의 마지막 요소 뒤에 temp_html 삽입
+    }
   };
+  $id_count_review.innerText = `현재 댓글 수 : ${count}`;
+  if (count === 0) {
+    let temp_html = `
+    <div class="reivew_count_zero">첫 리뷰를 남겨주세요😁</div>
+    `
+    $id_review_list.insertAdjacentHTML('beforeend', temp_html);
+  }
 }
+
