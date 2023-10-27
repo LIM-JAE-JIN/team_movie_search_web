@@ -129,7 +129,6 @@ let drawHtml = () => {
             <img src="./contents/review_btn.png" alt="Button Icon" />
           </button>
           <div class="review_edit_btn_wrapper" id="review_modal_edit${count}">
-            <button class="review_modal_edit_btn" id="review_edit_btn1${count}" data-target="review_etc_modal${count}"> 수정하기 </button>
             <button class="review_modal_delete_btn" id="review_delete_btn1${count}" data-target="review_etc_modal${count}"> 삭제하기 </button>
           </div>
           <div class="review_modal_etc" id="review_etc_modal${count}" >
@@ -180,27 +179,6 @@ document.addEventListener("DOMContentLoaded", function () {
 let edit_stats;
 let target;
 let target_num;
-// 수정하기 버튼을 눌렀을 때
-document.addEventListener("DOMContentLoaded", function () {
-  const $modal_edit_btn = document.querySelectorAll('.review_modal_edit_btn');
-
-  $modal_edit_btn.forEach((button) => {
-    button.addEventListener("click", () => {
-      console.log("수정하기 버튼이 클릭되었습니다.");
-      target = button.getAttribute("data-target");
-      target_num = target.slice(-1);
-      // 편집 modal의 id 조회하기
-      const modal = document.getElementById(target);
-      modal.style.display = "block";
-      // 
-      const target_btn = target.replace("review_etc_modal", "review_modal_edit");
-      const $review_edit_btn = document.getElementById(target_btn);
-      $review_edit_btn.style.display = "none";
-
-      edit_stats = "edit";
-    });
-  });
-});
 
 // 삭제하기 버튼을 눌렀을 때
 document.addEventListener("DOMContentLoaded", function () {
