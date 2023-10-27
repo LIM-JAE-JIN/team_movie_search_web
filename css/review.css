@@ -214,11 +214,11 @@ hr {
 }
 
 .review_modal_etc {
-  width: 400px;
+  width: 410px;
   height: 25px;
 
   position: absolute;
-  top: 0;
+  top: 25px;
   right: 0;
   display: none;
   flex-direction: row;

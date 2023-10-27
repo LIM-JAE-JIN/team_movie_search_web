@@ -173,13 +173,13 @@ let drawHtml = () => {
           </button>
           <div class="review_edit_btn_wrapper" id="review_modal_edit${count}">
             <button class="review_modal_edit_btn" id="review_edit_btn1${count}" data-target="review_etc_modal${count}"> 수정하기 </button>
-            <button class="review_modal_delete_btn" id="review_delete_btn1${count}"> 삭제하기 </button>
-            <div class="review_modal_etc" id="review_etc_modal${count}" >
+            <button class="review_modal_delete_btn" id="review_delete_btn1${count}" data-target="review_etc_modal${count}"> 삭제하기 </button>
+          </div>
+          <div class="review_modal_etc" id="review_etc_modal${count}" >
               <span>아이디</span><input id="review_edit_id${count}" class="review_etc_input" /> 
               <span>비밀번호</span><input type="password" id="review_edit_pw${count}" class="review_etc_input" />
-              <button id="submit_btn${count}" class="submit_btn" type="button">등록</button>
+              <button id="submit_btn${count}" class="submit_btn" type="button">확인</button>
             </div>
-          </div>
         </div>
       </div>
       <p class="review_comment_box_content">${value.comment_comment}</p>
@@ -198,40 +198,103 @@ let drawHtml = () => {
   $id_avg_star_score.innerText = `${(countStarScore / countReview).toFixed(1)}점`;
 }
 
+// ... 버튼을 눌렀을 때
 document.addEventListener("DOMContentLoaded", function () {
   const $edit_btn = document.querySelectorAll('.review_edit_btn');
-
   $edit_btn.forEach((button) => {
     button.addEventListener("click", () => {
       console.log("... 버튼이 클릭되었습니다.");
       const target = button.getAttribute("data-target");
       const modal = document.getElementById(target);
 
+      // edit
       if (modal.style.display === "none" || modal.style.display === "") {
         modal.style.display = "block"; // 표시
       } else {
         modal.style.display = "none"; // 숨김
       }
+
+      // 계정 입력 modal 숨김
+      const target_btn = target.replace("review_modal_edit", "review_etc_modal");
+      const $review_edit_btn = document.getElementById(target_btn);
+      $review_edit_btn.style.display = "none";
     });
   });
 });
 
+let edit_stats;
+let select_review_num;
+
+// 수정하기 버튼을 눌렀을 때
 document.addEventListener("DOMContentLoaded", function () {
   const $modal_edit_btn = document.querySelectorAll('.review_modal_edit_btn');
 
   $modal_edit_btn.forEach((button) => {
     button.addEventListener("click", () => {
-      console.log("버튼이 클릭되었습니다.");
+      console.log("수정하기 버튼이 클릭되었습니다.");
       const target = button.getAttribute("data-target");
+      // 편집 modal의 id 조회하기
+      const target_btn = target.replace("review_etc_modal", "review_modal_edit");
+      const $review_edit_btn = document.getElementById(target_btn);
+
       const modal = document.getElementById(target);
 
+      $review_edit_btn.style.display = "none";
+      modal.style.display = "block";
 
-      if (modal.style.display === "none" || modal.style.display === "") {
-        modal.style.display = "block"; // 표시
-      } else {
-        modal.style.display = "none"; // 숨김
+      edit_stats = "edit";
+    });
+  });
+});
+
+// 삭제하기 버튼을 눌렀을 때
+document.addEventListener("DOMContentLoaded", function () {
+  const $modal_edit_btn = document.querySelectorAll('.review_modal_delete_btn');
+
+  $modal_edit_btn.forEach((button) => {
+    button.addEventListener("click", () => {
+      console.log("삭제하기 버튼이 클릭되었습니다.");
+      const target = button.getAttribute("data-target");
+      // 편집 modal의 id 조회하기
+      const target_btn = target.replace("review_etc_modal", "review_modal_edit");
+      const $review_edit_btn = document.getElementById(target_btn);
+
+      const modal = document.getElementById(target);
+
+      $review_edit_btn.style.display = "none";
+      modal.style.display = "block";
+      edit_stats = "delete";
+    });
+  });
+});
+
+// 댓글 편집 시 확인 버튼을 눌렀을 때
+document.addEventListener("DOMContentLoaded", function () {
+  const $buttons = document.querySelectorAll('.submit_btn');
+
+  $buttons.forEach((button) => {
+    button.addEventListener("click", () => {
+
+      if (edit_stats === "edit") {
+        // 수정일 때
+        console.log("수정 버튼이 클릭되었습니다.");
+        // 계정이 일치하지 않을 때
+
+        // 계정이 일치할 때 
+        // review_modal_etc를 감춤
+        // 별점과 댓글을 수정하는 창을 감춤 해제
+
+      } else if (edit_stats === "delete") {
+        // 삭제일 때
+        console.log("삭제 버튼이 클릭되었습니다.");
+        // 계정이 일치하지 않을 때
+
+        // 계정이 일치할 때 
+        // review_modal_etc를 감춤
+        // 댓글을 삭제
+        // 삭제 alert 창 띄우기
+
       }
-    }
-    );
+    });
   });
 });
