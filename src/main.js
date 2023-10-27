@@ -1,3 +1,4 @@
+
 import { searching } from './search.js'
 import { generateMovieCards } from './card.js'
 generateMovieCards();
@@ -9,3 +10,4 @@ $searchBox.addEventListener("submit", function (event) {
   event.preventDefault();
   searching();
 });
+
