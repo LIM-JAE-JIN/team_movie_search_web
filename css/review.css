@@ -163,32 +163,55 @@ hr {
 .review_edit_wrapper {
   display: flex;
   flex-direction: column;
+  position: relative;
 }
 
 .review_edit_btn_wrapper {
   width: 75px;
-  height: 50px;
-  display: flex;
+  height: 70px;
+
+  position: absolute;
+  top: 25px;
+  right: 0;
+
+  display: none;
   flex-direction: column;
   border: 1px solid black;
 }
 
-.review_modal_edit {
-  width: 75px;
+.review_edit_btn {
+  width: 25px;
   height: 25px;
-
-  background-color: white;
-  border: 1px solid black;
-  border-radius: 5px;
 }
 
-.review_modal_delete {
+.review_edit_btn > img {
+  width: 25px;
+  height: 25px;
+  position: absolute;
+  top: 0;
+  left: 0;
+  cursor: pointer;
+}
+
+.review_modal_edit_btn {
+  margin: 5px 0px;
   width: 75px;
   height: 25px;
 
   background-color: white;
-  border: 1px solid black;
-  border-radius: 5px;
+  border: none;
+
+  z-index: 100;
+}
+
+.review_modal_delete_btn {
+  width: 75px;
+  height: 25px;
+  margin: 5px 0px;
+  background-color: white;
+  border: none;
+
+  z-index: 100;
 }
 /*
 

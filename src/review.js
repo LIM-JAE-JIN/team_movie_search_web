@@ -91,8 +91,6 @@ $id_submit_btn.addEventListener("click", function (event) {
       comment_currentDate: currentTime()
     }
 
-    console.log(starScore);
-
     // 객체를 string화 (localStorage에 저장 시 문자열로 저장되어야함)
     const serializedcomment = JSON.stringify(comment); // JSON.stringify() : JSON을 문자열로 변환(?)
     localStorage.setItem(commentId, serializedcomment); // localStorage.setItem(Key,Value) : localStorage에 Key:Value 저장
@@ -112,27 +110,9 @@ let drawHtml = () => {
     localStorageData[key] = JSON.parse(value); // JSON으로 변환 후 배열에 저장
   });
 
-  console.log(localStorageData);
-
-  /*
-  localStorageKeys.sort((a, b) => {
-    const dateA = new Date(localStorage[a].comment_currentDate);
-    const dateB = new Date(localStorage[b].comment_currentDate);
-    return dateA - dateB;
-  });
-
-  const sortedlocalStorageData = {};
-  localStorageKeys.forEach(key => {
-    sortedlocalStorageData[key] = localStorage[key];
-  });
-
-  const sortedComments = Object.entries(comments).sort((a, b) => {
-    const dateA = new Date(a[1].comment_currentDate);
-    const dateB = new Date(b[1].comment_currentDate);
-    return dateA - dateB;
-  });
-*/
-
+  // 객체를 배열로 변환해서 정렬하고 다시 배열을 객체로 변환하면!!!!
+  // 객체에서는 정렬이.. 풀려버려....
+  // 배열을 Map으로 바꿔서 써야만.. 하는 것일까...??
   // // 객체를 배열로 변환하여 comment_currentDate를 기준으로 정렬
   // const sortedComments = Object.entries(localStorageData).sort((a, b) => {
   //   const dateA = new Date(a[1].comment_currentDate);
@@ -160,13 +140,6 @@ let drawHtml = () => {
     return dateB - dateA;
   }));
 
-  console.log(sortedCommentsMap);
-
-  // Map을 객체로 변환
-  // const sortedCommentsObject = Object.fromEntries(sortedCommentsMap);
-
-  // console.log(sortedCommentsObject);
-
   //----- html 추가~~
   const $id_review_list = document.getElementById("review_list");
 
@@ -182,25 +155,25 @@ let drawHtml = () => {
 
   let countStarScore = 0;
   let count = 0;
-  const valuesIterator = sortedCommentsMap.values(); // 
-  console.log(valuesIterator);
+  const valuesIterator = sortedCommentsMap.values(); // map의 value 값으로 배열 생성
+
   // 모든 댓글 추가
   for (const value of valuesIterator) {
-
-    // localStorageData의 행수만큼 반복 실행!
+    // valuesIterator의 행수만큼 반복 실행!
     count++;
     // const comment = sortedCommentsMap[key];
-    console.log(value);
     let temp_html = `
     <li class="review_comment_wrapper">
     <div class="review_comment_box">
       <div class="review_comment_box_header">
         <div class="star_grade">별점 : ${value.comment_star_score}</div>
         <div class="review_edit_wrapper" >
-          <button class="review_edit_btn" data-target="review_modal_edit${count}">...........</button>
-          <div class="review_edit_btn_wrapper" id="review_modal_edit${count}" display="none">
-            <button class="review_modal_edit"> 수정하기 </button>
-            <button class="review_modal_delete"> 삭제하기 </button>
+          <button class="review_edit_btn" data-target="review_modal_edit${count}">
+            <img src="./contents/review_btn.png" alt="Button Icon" />
+          </button>
+          <div class="review_edit_btn_wrapper" id="review_modal_edit${count}">
+            <button class="review_modal_edit_btn"> 수정하기 </button>
+            <button class="review_modal_delete_btn"> 삭제하기 </button>
           </div>
         </div>
       </div>
@@ -214,9 +187,6 @@ let drawHtml = () => {
   </li>
     `;
 
-    // const $id_review_modal_edit = document.selec(`review_edit_btn`);
-    // $id_review_modal_edit.style.display = "none";
-
     $id_review_list.insertAdjacentHTML('beforeend', temp_html);// @@.insertAdjacentHTML('beforeend', temp_html) : @@의 마지막 요소 뒤에 temp_html 삽입
     countStarScore += Number(value.comment_star_score);
   };
@@ -227,6 +197,24 @@ document.addEventListener("DOMContentLoaded", function () {
   const $edit_btn = document.querySelectorAll('.review_edit_btn');
 
   $edit_btn.forEach((button) => {
+    button.addEventListener("click", () => {
+      console.log("버튼이 클릭되었습니다.");
+      const target = button.getAttribute("data-target");
+      const modal = document.getElementById(target);
+
+      if (modal.style.display === "none" || modal.style.display === "") {
+        modal.style.display = "block"; // 표시
+      } else {
+        modal.style.display = "none"; // 숨김
+      }
+    });
+  });
+});
+
+document.addEventListener("DOMContentLoaded", function () {
+  const $modal_edit_btn = document.querySelectorAll('.review_modal_edit_btn');
+
+  $modal_edit_btn.forEach((button) => {
     button.addEventListener("click", () => {
       console.log("버튼이 클릭되었습니다.");
       const target = button.getAttribute("data-target");
@@ -244,23 +232,3 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   });
 });
-
-// const $edit_btn = document.querySelectorAll('.review_edit_btn');
-// $edit_btn.forEach((button) => {
-//   button.addEventListener("click", () => {
-//     console.log("???");
-//     // const target = button.getAttribute("data-target");
-//     // const modal = document.getElementById(target);
-
-//     // if (modal.style.display === "none" || modal.style.display === "") {
-//     //   modal.style.display = "block"; // 표시
-//     //   console.log("a");
-//     // } else {
-//     //   modal.style.display = "none"; // 숨김
-//     //   console.log("b");
-//     // }
-//   });
-// });
-
-// export { };
-// 선언된 너네 나가서 다른 파일에서 쓰이거라!!?
