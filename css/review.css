@@ -107,10 +107,14 @@ hr {
   resize: none;
   width: 100%;
   font-size: 17.5px;
-  border: 0px solid white;
+  border: 1px solid gray;
 }
 
 .review_write_comment:focus {
+  outline: none;
+}
+
+.review_etc_input:focus {
   outline: none;
 }
 
@@ -144,12 +148,6 @@ hr {
   margin: 15px 0;
 }
 
-.review_comment_box_header {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-}
-
 .review_comment_date {
   color: gray;
 }
@@ -160,23 +158,19 @@ hr {
   font-size: 17.5px;
 }
 
+.review_comment_text {
+  display: block;
+  margin-block-start: 1em;
+  margin-block-end: 1em;
+  margin-inline-start: 0px;
+  margin-inline-end: 0px;
+  line-height: 25px;
+}
+
 .review_edit_wrapper {
   display: flex;
   flex-direction: column;
   position: relative;
-}
-
-.review_edit_btn_wrapper {
-  width: 75px;
-  height: 35px;
-
-  position: absolute;
-  top: 25px;
-  right: 0;
-
-  display: none;
-  flex-direction: column;
-  border: 1px solid black;
 }
 
 .review_edit_btn {

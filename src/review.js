@@ -99,7 +99,7 @@ let drawHtml = () => {
     let temp_html = `
     <li class="review_comment_wrapper">
     <div class="review_comment_box">
-      <p class="review_comment_box_content">${value.comment_comment}</p>
+      <p class="review_comment_text">${value.comment_comment}</p>
       <div class="review_comment_box_bottom">
         <span class="review_comment_id" id="review_comment_id${count}">${value.comment_id}</span>
         <span class="review_comment_date" id="review_comment_pw${count}">${value.comment_currentDate}</span>
