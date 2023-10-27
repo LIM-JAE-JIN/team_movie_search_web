@@ -1,15 +1,11 @@
 // 더보기 사용을 위한 moreview 카운트 선언 가져가야함
-export let currentCount = 0;
-export let loadCount = 5;
-export let loadMoreButton = document.getElementById("loadMore");
 
 // 카드 뿌리기 함수 = 가져가야함
-export const generateMovieCards = async () => {
-  const movies = await fetchMovieData();
-  let loadMoreButton = document.getElementById("loadMore");
-  let nextMovies = movies.slice(0, currentCount + loadCount); // 0~5번까지
+export const movies = await fetchMovieData();
+
+export const generateMovieCards = async (movies) => {
   const cardList = document.querySelector("#card_wrapAllList");
-  cardList.innerHTML = nextMovies
+  cardList.innerHTML = movies
     .map(
       (movie) => `
             <li class="card_li">
@@ -33,17 +29,8 @@ export const generateMovieCards = async () => {
           </li>`
     )
     .join("");
-  currentCount = nextMovies.length; // 현재 length를 currentCount로 치환
-  console.log(currentCount);
-
-  // 모든 카드가 표시되었다면 더 보기 버튼 숨기기
-  if (currentCount >= movies.length) {
-    loadMoreButton.style.display = "none";
-  };
+  const $cardList = document.querySelectorAll(".card_li");
 };
-
-// 더보기 함수를 위한 이벤트리스너
-loadMoreButton.addEventListener("click", generateMovieCards);
 
 export async function fetchMovieData() {
   const options = {
@@ -59,3 +46,30 @@ export async function fetchMovieData() {
   const data = await response.json();
   return data.results;
 }
+
+export let currentCount = 0;
+export let loadCount = 5;
+export let loadMoreButton = document.getElementById("loadMore");
+
+loadMoreButton.addEventListener("click", (event) => {
+  event.preventDefault();
+  moreView();
+});
+
+export const moreView = () => {
+  const movieCard = document.querySelectorAll(".card_li");
+  currentCount = currentCount + loadCount;
+  movieCard.forEach((card, index) => {
+    console.log(index);
+    const movieCount = index + 1;
+    if (movieCount <= currentCount) {
+      card.style.display = "block";
+    } else {
+      card.style.display = "none";
+    }
+  });
+  if (currentCount >= movies.length) {
+    loadMoreButton.style.display = "none";
+  }
+  console.log(currentCount);
+};
