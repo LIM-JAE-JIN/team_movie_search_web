@@ -7,7 +7,7 @@ const $searchInput = document.getElementById("search_input");
 const $rank_mainBoard = document.querySelector(".rank_mainBoard");
 const $rank_mainBoardImg = document.querySelector(".rank_mainBoardImg");
 const $rankWrap = document.querySelector(".rankWrap");
-const $rankCard = document.querySelectorAll(".card_li rank")
+const $rankCard = document.querySelectorAll(".rankCard")
 const $cardAllList = document.querySelector('.card_ol');
 const $cardMoreBtn = document.querySelector('#loadMore');
 
@@ -31,7 +31,7 @@ const top5Movie = movieListAll.slice(0, 5);
 
 // 랭킹카드 뿌리는 함수
 top5Movie.forEach((movie, idx) => {
-  const rankHTML = `<li class="card_li rank">
+  const rankHTML = `<li class="rankCard">
   <div class="card_poster">
   <a href="./detail.html?detail_id=${movie.id}" class="card_thumb_item">
       <div class="card_poster_movie">
