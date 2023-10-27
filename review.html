@@ -4,18 +4,15 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>review v1</title>
-    <link rel="stylesheet" href="./css/review.css" />
+    <link rel="stylesheet" href="./css/layout.css" />
   </head>
 
   <body class="review_body">
     <!-- 여기부터 detail.html 하단에 들어갑니다 !!!!! -->
     <!-- review -->
-    <!-- <div class="review" style="min-height: 450px"> -->
     <div class="review">
       <!-- review 요약 -->
       <div class="review_title_wrapper">
-        <span class="review_title_text">기대 평점</span>
-        <span id="review_avg_star_score" class="review_avg_star_score"><!-- 별점 평균 점수 --></span>
         <span id="review_count_review" class="review_count_review"><!-- 댓글 작성 인원--></span>
       </div>
 
@@ -28,41 +25,20 @@
         <!-- review 작성 -->
         <div class="review_write_wrapper">
           <div class="review_write_comment_wrapper">
-            <!-- 그룹화 -->
-            <fieldset>
-              <div class="review_star_grade_wrapper">
-                <input type="radio" name="review_star_grade" id="star1" class="hidden_radio" value="1" checked />
-                <label for="star1" class="custom_star" data-image="/contents/star1_y.png"></label
-                ><input type="radio" name="review_star_grade" id="star2" class="hidden_radio" value="2" />
-                <label for="star2" class="custom_star" data-image="/contents/star1_y.png"></label>
-                <input type="radio" name="review_star_grade" id="star3" class="hidden_radio" value="3" />
-                <label for="star3" class="custom_star" data-image="/contents/star1_y.png"></label>
-                <input type="radio" name="review_star_grade" id="star4" class="hidden_radio" value="4" />
-                <label for="star4" class="custom_star" data-image="/contents/star1_y.png"></label>
-                <input type="radio" name="review_star_grade" id="star5" class="hidden_radio" value="5" checked />
-                <label for="star5" class="custom_star" data-image="/contents/star1_y.png"></label>
-                <img id="radio_image" src="" />
-                <span id="review_select_star_grade">5</span>
-              </div>
-              <hr />
-              <!-- 댓글 작성란 -->
-              <!-- <div id="review_write_comment" class="review_write_comment"> -->
-              <textarea
-                id="review_write_comment"
-                class="review_write_comment"
-                rows="5"
-                placeholder="댓글을 작성해주세요."
-                spellcheck="false"
-              ></textarea>
-              <!-- </div> -->
-              <!-- /댓글 작성란 -->
-            </fieldset>
-            <!-- 그룹화 -->
+            <!-- 댓글 작성란 -->
+            <textarea
+              id="review_write_comment"
+              class="review_write_comment"
+              rows="5"
+              placeholder="댓글을 작성해주세요."
+              spellcheck="false"
+            ></textarea>
+            <!-- /댓글 작성란 -->
           </div>
           <div class="review_write_etc_wrapper">
-            <span>아이디</span><input id="review_write_id" /> <span>비밀번호</span
-            ><input type="password" id="review_write_pw" />
-            <button id="submit_btn" type="button">등록</button>
+            <span>아이디</span><input id="review_write_id" class="review_etc_input" /> <span>비밀번호</span
+            ><input type="password" id="review_write_pw" class="review_etc_input" />
+            <button id="submit_btn" class="submit_btn" type="button">등록</button>
           </div>
         </div>
         <!-- review 작성 -->
