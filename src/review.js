@@ -26,35 +26,9 @@ $star_grade_radio.forEach(function (radio) {
   });
 });
 
-// $radio_buttons.forEach(radioButton => {
-//   radioButton.addEventListener('change', function () {
-//     if (this.checked) {
-//       const imageSource = this.nextElementSibling.getAttribute('data-image');
-//       $id_radio_image.src = imageSource;
-//     }
-//   });
-// });
-
-// $star_grade_radio.forEach(function (radio) {
-//   radio.addEventListener("hover", function () {
-//     const starScore = radio.value;
-//     $id_select_star_grade.innerText = starScore;
-//   });
-// });
-
-
-
-
 // 현재 시간
 const currentTime = () => {
   const currentDate = new Date();
-  // const year = currentDate.getFullYear();
-  // const month = currentDate.getMonth() + 1; // 월은 0부터 시작하므로 +1
-  // const day = currentDate.getDate();
-  // const hours = currentDate.getHours();
-  // const minutes = currentDate.getMinutes();
-  // const seconds = currentDate.getSeconds();
-  // return `(${year}.${month}.${day}   ${hours}:${minutes}:${seconds})` // 데이터 활용할 일 없으므로 텍스트로 저장해버림!!!
   return currentDate;
 }
 
@@ -100,6 +74,8 @@ $id_submit_btn.addEventListener("click", function (event) {
   }
 });
 
+let commentsMap;
+
 // html에서 review 조회하는 함수
 let drawHtml = () => {
   // localStorage에 저장된 모든 값들을 불러오기
@@ -110,28 +86,8 @@ let drawHtml = () => {
     localStorageData[key] = JSON.parse(value); // JSON으로 변환 후 배열에 저장
   });
 
-  // 객체를 배열로 변환해서 정렬하고 다시 배열을 객체로 변환하면!!!!
-  // 객체에서는 정렬이.. 풀려버려....
-  // 배열을 Map으로 바꿔서 써야만.. 하는 것일까...??
-  // // 객체를 배열로 변환하여 comment_currentDate를 기준으로 정렬
-  // const sortedComments = Object.entries(localStorageData).sort((a, b) => {
-  //   const dateA = new Date(a[1].comment_currentDate);
-  //   const dateB = new Date(b[1].comment_currentDate);
-  //   return dateA - dateB;
-  // });
-
-  // console.log(sortedComments);
-
-  // // 정렬된 배열을 다시 객체로 변환
-  // const sortedlocalStorageData = {};
-  // sortedComments.forEach(([key, value]) => {
-  //   sortedlocalStorageData[key] = value;
-  // });
-
-  // console.log(sortedlocalStorageData);
-
   // 객체를 Map으로 변환
-  const commentsMap = new Map(Object.entries(localStorageData));
+  commentsMap = new Map(Object.entries(localStorageData));
 
   // Map을 comment_currentDate를 기준으로 정렬
   const sortedCommentsMap = new Map([...commentsMap.entries()].sort((a, b) => {
@@ -176,7 +132,6 @@ let drawHtml = () => {
             <button class="review_modal_delete_btn" id="review_delete_btn1${count}" data-target="review_etc_modal${count}"> 삭제하기 </button>
           </div>
           <div class="review_modal_etc" id="review_etc_modal${count}" >
-              <span>아이디</span><input id="review_edit_id${count}" class="review_etc_input" /> 
               <span>비밀번호</span><input type="password" id="review_edit_pw${count}" class="review_etc_input" />
               <button id="submit_btn${count}" class="submit_btn" type="button">확인</button>
             </div>
@@ -184,9 +139,8 @@ let drawHtml = () => {
       </div>
       <p class="review_comment_box_content">${value.comment_comment}</p>
       <div class="review_comment_box_bottom">
-        <span class="review_comment_id"></span>
-        <span class="review_comment_id">${value.comment_id}</span>
-        <span class="review_comment_date">${value.comment_currentDate}</span>
+        <span class="review_comment_id" id="review_comment_id${count}">${value.comment_id}</span>
+        <span class="review_comment_date" id="review_comment_pw${count}">${value.comment_currentDate}</span>
       </div>
     </div>
   </li>
@@ -223,8 +177,8 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 
 let edit_stats;
-let select_review_num;
-
+let target;
+let target_num;
 // 수정하기 버튼을 눌렀을 때
 document.addEventListener("DOMContentLoaded", function () {
   const $modal_edit_btn = document.querySelectorAll('.review_modal_edit_btn');
@@ -232,15 +186,15 @@ document.addEventListener("DOMContentLoaded", function () {
   $modal_edit_btn.forEach((button) => {
     button.addEventListener("click", () => {
       console.log("수정하기 버튼이 클릭되었습니다.");
-      const target = button.getAttribute("data-target");
+      target = button.getAttribute("data-target");
+      target_num = target.slice(-1);
       // 편집 modal의 id 조회하기
+      const modal = document.getElementById(target);
+      modal.style.display = "block";
+      // 
       const target_btn = target.replace("review_etc_modal", "review_modal_edit");
       const $review_edit_btn = document.getElementById(target_btn);
-
-      const modal = document.getElementById(target);
-
       $review_edit_btn.style.display = "none";
-      modal.style.display = "block";
 
       edit_stats = "edit";
     });
@@ -254,15 +208,16 @@ document.addEventListener("DOMContentLoaded", function () {
   $modal_edit_btn.forEach((button) => {
     button.addEventListener("click", () => {
       console.log("삭제하기 버튼이 클릭되었습니다.");
-      const target = button.getAttribute("data-target");
-      // 편집 modal의 id 조회하기
+      target = button.getAttribute("data-target");
+      target_num = target.slice(-1);
+      // 의 id 조회한 후 숨기기
+      const modal = document.getElementById(target);
+      modal.style.display = "block";
+      // 편집 modal의 id 조회한 후 숨기기
       const target_btn = target.replace("review_etc_modal", "review_modal_edit");
       const $review_edit_btn = document.getElementById(target_btn);
-
-      const modal = document.getElementById(target);
-
       $review_edit_btn.style.display = "none";
-      modal.style.display = "block";
+
       edit_stats = "delete";
     });
   });
@@ -274,26 +229,32 @@ document.addEventListener("DOMContentLoaded", function () {
 
   $buttons.forEach((button) => {
     button.addEventListener("click", () => {
+      // 선택한 댓글의 key값 가져오기
+      const selectKey = [...commentsMap.keys()][target_num];
+      console.log(selectKey);
 
-      if (edit_stats === "edit") {
+      // 선택한 댓글의 비밀번호 가져오기
+      const selectValue = [...commentsMap.values()][target_num].comment_pw;
+      console.log(selectValue);
+
+      // 작성한 비밀번호 가져오기
+      const target_pw = target.replace("review_etc_modal", "review_edit_pw");
+      const $review_edit_pw = document.getElementById(target_pw);
+      const input_edit_pw = $review_edit_pw.value
+      console.log(input_edit_pw);
+
+      if (selectValue != input_edit_pw) {
+        alert("비밀번호가 다르잖습니까!!");
+      } else if (edit_stats === "edit") {
         // 수정일 때
         console.log("수정 버튼이 클릭되었습니다.");
-        // 계정이 일치하지 않을 때
-
-        // 계정이 일치할 때 
         // review_modal_etc를 감춤
         // 별점과 댓글을 수정하는 창을 감춤 해제
 
       } else if (edit_stats === "delete") {
         // 삭제일 때
         console.log("삭제 버튼이 클릭되었습니다.");
-        // 계정이 일치하지 않을 때
-
-        // 계정이 일치할 때 
-        // review_modal_etc를 감춤
-        // 댓글을 삭제
-        // 삭제 alert 창 띄우기
-
+        // localStorage.removeItem('key');
       }
     });
   });
