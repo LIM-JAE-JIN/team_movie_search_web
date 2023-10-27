@@ -1,8 +1,9 @@
 // 더보기 사용을 위한 moreview 카운트 선언 가져가야함
 
 // 카드 뿌리기 함수 = 가져가야함
-export const generateMovieCards = async () => {
-  const movies = await fetchMovieData();
+export const movies = await fetchMovieData();
+
+export const generateMovieCards = async (movies) => {
   const cardList = document.querySelector("#card_wrapAllList");
   cardList.innerHTML = movies
     .map(
@@ -55,9 +56,6 @@ loadMoreButton.addEventListener("click", (event) => {
   moreView();
 });
 
-generateMovieCards();
-
-const movies = await fetchMovieData();
 export const moreView = () => {
   const movieCard = document.querySelectorAll(".card_li");
   currentCount = currentCount + loadCount;
@@ -75,5 +73,3 @@ export const moreView = () => {
   }
   console.log(currentCount);
 };
-
-moreView();
