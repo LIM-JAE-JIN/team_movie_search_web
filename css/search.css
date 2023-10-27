@@ -131,16 +131,16 @@
   flex-direction: row;
 }
 
-.card_li.rank .img_thumb {
+.rankCard .img_thumb {
   border-radius: 10px;
 }
 
-.card_li.rank:hover {
+.rankCard:hover {
   transform: translateY(-10px);
   transition: transform 0.5s ease;
 }
 
-.card_li.rank:hover .img_thumb {
+.rankCard:hover .img_thumb {
   transform: scale(1);
   transition: transform 0.5s ease;
 }
