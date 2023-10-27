@@ -1,9 +1,8 @@
 /* 전체 적용 */
-.review {
+.review_container {
   background-color: white;
   width: 810px;
   margin: auto;
-  margin-bottom: 100px;
 }
 
 /* 리뷰 요약 */
@@ -107,6 +106,7 @@
 .review_write_comment:focus {
   outline: none;
 }
+
 /* 계정 입력 */
 .review_write_etc_wrapper {
   display: flex;
@@ -119,9 +119,10 @@
 }
 
 .review_etc_input {
-  border: none; /* 기본 테두리 제거 */
-  border-bottom: 1px solid rgb(175, 175, 175);
   width: 100px;
+  height: auto;
+  border: none;
+  border-bottom: 1px solid rgb(175, 175, 175);
 }
 
 .review_etc_input:focus {
@@ -139,7 +140,11 @@
   cursor: pointer;
 }
 
-/* 댓글 조회 */
+/*** 댓글 조회 ***/
+.review_list_container {
+  width: 810px;
+  margin: 0 auto;
+}
 .review_list {
   padding: 0;
   margin: 0;
@@ -190,6 +195,7 @@
   margin-inline-end: 0px;
   line-height: 25px;
 }
+
 .review_edit_wrapper {
   display: flex;
   flex-direction: column;
