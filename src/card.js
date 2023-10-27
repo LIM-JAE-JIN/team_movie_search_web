@@ -1,7 +1,4 @@
 // 더보기 사용을 위한 moreview 카운트 선언 가져가야함
-export let currentCount = 0;
-export let loadCount = 5;
-export let loadMoreButton = document.getElementById("loadMore");
 
 // 카드 뿌리기 함수 = 가져가야함
 export const generateMovieCards = async () => {
@@ -49,6 +46,10 @@ export async function fetchMovieData() {
   return data.results;
 }
 
+export let currentCount = 0;
+export let loadCount = 5;
+export let loadMoreButton = document.getElementById("loadMore");
+
 loadMoreButton.addEventListener("click", (event) => {
   event.preventDefault();
   moreView();
@@ -57,12 +58,12 @@ loadMoreButton.addEventListener("click", (event) => {
 generateMovieCards();
 
 const movies = await fetchMovieData();
-const moreView = () => {
+export const moreView = () => {
   const movieCard = document.querySelectorAll(".card_li");
   currentCount = currentCount + loadCount;
-  movieCard.forEach((card, key) => {
-    console.log(key);
-    const movieCount = key + 1;
+  movieCard.forEach((card, index) => {
+    console.log(index);
+    const movieCount = index + 1;
     if (movieCount <= currentCount) {
       card.style.display = "block";
     } else {
