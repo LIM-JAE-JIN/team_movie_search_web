@@ -18,22 +18,20 @@ $topTitle.addEventListener('click', function () {
 });
 
 // 카드 정보들 다시 가져오기
-const movieListAll = await fetchMovieData(); // card.js에서 fetch 데이터 가져옴
-console.log(movieListAll);
+const movieListAll = await fetchMovieData(); // card.js에서 fetch 데이터 가져오기
+// console.log(movieListAll);
 
 // ======= 메인 =========
 // rankWrap 부분에 카드 뿌리기 
-// 1) 전체 카드들 중에서 랭킹 카드로 담을 애들 중 상위 5개만 뿌리기
-
-movieListAll.sort((a, b) => b.vote_average - a.vote_average);
-const top5Movie = movieListAll.slice(0, 5);
+movieListAll.sort((a, b) => b.vote_average - a.vote_average); // sort 메서드를 이용해 평점으로 정렬하기
+const top5Movie = movieListAll.slice(0, 5); // 랭킹 5개 영화 카드 리스트
 // console.log(top5Movie);
 
 // 랭킹카드 뿌리는 함수
-top5Movie.forEach((movie, idx) => {
-  const rankHTML = `<li class="rankCard">
+top5Movie.forEach((movie, idx) => { //movie 객체와 인덱스를 활용하는 콜백 함수 실행
+  const rankHTML = `<li class="rankCard" movie-id="${movie.id}">
   <div class="card_poster">
-  <a href="./detail.html?detail_id=${movie.id}" class="card_thumb_item">
+  <div class="card_thumb_item">
       <div class="card_poster_movie">
         <img
           src="https://image.tmdb.org/t/p/w500${movie.poster_path}"
@@ -42,7 +40,7 @@ top5Movie.forEach((movie, idx) => {
         />
         <span class="rank_num">${idx + 1}</span>
       </div>
-    </a>
+    </div>
   </div>
   <div class="card_title">
     <strong>
@@ -50,13 +48,36 @@ top5Movie.forEach((movie, idx) => {
     </strong>
   </div>
 </li>`;
-  $rankWrap.innerHTML += rankHTML;
+  $rankWrap.innerHTML += rankHTML; // DOM요소에 rankHTML을 삽입
 });
 
-// 2) 랭킹 카드에 마우스를 가져다대면 메인 이미지, 타이틀, 바뀌기
-// 해당 카드의 id 값으로 매칭하여 값을 불러오기?
 
-$rank_mainBoardImg.style.backgroundImage = 'url("https://t1.daumcdn.net/cfile/tistory/99B9CB495C866F5717")'
+// 2) 랭킹 카드를 클릭하면 메인 이미지, 타이틀, 바뀌기
+$rankWrap.addEventListener("click", (event) => {
+  const clickTarget = event.target.closest('.rankCard'); // 클릭된 타겟 id에 접근하기 위하여 타겟 지정
+  const clickCardId = parseInt(clickTarget.getAttribute('movie-id')); // 클릭된 타겟의 id값 지정 (숫자로 변환 / 변환 안할 시 아래 find 실행안됨)
+  const clickedRankCard = top5Movie.find(item => item.id === clickCardId); // top5Movie의 id값과 타겟의 id값 비교
+  if (clickedRankCard) {
+    changeCnt(clickedRankCard); // 메인보드 컨텐츠 변경하는 함수 실행
+  }
+});
+
+// 클릭 시 컨텐츠 변경하는 함수 
+export const changeCnt = (movie) => { // movie 배열을 매개변수로 받는 함수
+  $rank_mainBoard.innerHTML = `
+  <div class="rank_mainBoardImg" style="background-image: url('https://image.tmdb.org/t/p/original${movie.backdrop_path}")></div>
+
+  <div class="mainRankCnt">
+    <h1 class="mainRankTitle">${movie.title}</h1>
+    <p class="mainRankOverview">
+      ${movie.overview}
+    </p>
+    <a href="./detail.html?detail_id=${movie.id}">
+      <button class="mainRankBtn">상세보기</button>
+    </a>
+  </div>`
+};
+
 
 // ======= 검색 =========
 // 검색 실행 및 유효성 검사 함수
@@ -117,4 +138,5 @@ $searchInput.addEventListener('input', (event) => {
   console.log(searchedList);
 })
 
-
+// 초기 메인 화면에 컨텐츠 띄우기 
+changeCnt(top5Movie[0]);
