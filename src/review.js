@@ -35,7 +35,6 @@ let countStarScore;
 let edit_stats;
 let target;
 let target_num;
-let sortedMap;
 
 // Dom요소 조회 후 실행되는 이벤트
 document.addEventListener("DOMContentLoaded", function () {
@@ -54,10 +53,15 @@ $star_grade_radio.forEach(function (radio) {
   });
 });
 
-// 현재 시간
+// 저장 시간 조회
 const currentTime = () => {
-  const date = new Date();
+  const currentDate = new Date();
+  return currentDate;
+}
 
+// 저장 시간 형식 변환
+const formattedTime = (originalDate) => {
+  const date = new Date(originalDate);
   const year = date.getFullYear();
   const month = (date.getMonth() + 1).toString().padStart(2, '0');
   const day = date.getDate().toString().padStart(2, '0');
@@ -65,8 +69,8 @@ const currentTime = () => {
   const minutes = date.getMinutes().toString().padStart(2, '0');
   const seconds = date.getSeconds().toString().padStart(2, '0');
 
-  // const formattedDate = 
-  return `(${year}.${month}.${day} ${hours}:${minutes}:${seconds})`;
+  const formattedDate = `${year}.${month}.${day} ${hours}:${minutes}:${seconds}`;
+  return formattedDate;
 }
 
 // localStroage 데이터 저장
@@ -126,38 +130,12 @@ const loadLocalStorage = () => {
   // 객체를 Map으로 변환
   commentsMap = new Map(Object.entries(localStorageData));
 
-  // Map을 Array로 변환하고 정렬
-  const sortedCommentsMap = Array.from(commentsMap);
-
-  sortedCommentsMap.sort((a, b) => {
-    // 각 항목의 value에서 currentDate를 추출
-    const dateA = new Date(a[1].comment_currentDate.slice(1, -1)); // 괄호를 제외한 부분을 Date 객체로 변환
-    const dateB = new Date(b[1].comment_currentDate.slice(1, -1));
-
-    // 날짜를 비교하여 정렬
-    return dateA - dateB;
-  });
-
-  // 정렬된 Array를 다시 Map으로 변환
-  sortedMap = new Map(sortedCommentsMap);
-
-  // 정렬된 Map 출력
-  for (const [key, value] of sortedMap) {
-    console.log(`map : ${key}, ${value}`);
-  }
-
-  console.log(sortedMap);
-  /*
-  // 객체를 Map으로 변환
-  commentsMap = new Map(Object.entries(localStorageData));
-
   // Map을 comment_currentDate를 기준으로 정렬
   sortedCommentsMap = new Map([...commentsMap.entries()].sort((a, b) => {
     const dateA = new Date(a[1].comment_currentDate);
     const dateB = new Date(b[1].comment_currentDate);
     return dateB - dateA;
   }));
-  */
 }
 
 // html에서 review 조회
@@ -170,13 +148,15 @@ let drawHtml = () => {
 
   countStarScore = 0;
   count = 0;
-  valuesIterator = sortedMap.values(); // map의 value 값으로 배열 생성
+  valuesIterator = sortedCommentsMap.values(); // map의 value 값으로 배열 생성
 
   // 모든 댓글 추가
-  valuesIterator.forEach(value => {
+  for (const value of valuesIterator) {
     if (value.movie_id === myMovieId) {
       // valuesIterator의 행수만큼 반복 실행!
       count++;
+      const originalDate = value.comment_currentDate;
+
       let temp_html = `
       <li class="review_comment_wrapper">
         <div class="review_comment_box">
@@ -198,7 +178,7 @@ let drawHtml = () => {
         <p class="review_comment_text">${value.comment_comment}</p>
           <div class="review_comment_box_bottom">
             <span class="review_comment_id" id="review_comment_id${count}">${value.comment_id}</span>
-            <span class="review_comment_date" id="review_comment_pw${count}">${value.comment_currentDate}</span>
+            <span class="review_comment_date" id="review_comment_pw${count}">(${formattedTime(originalDate)})</span>
           </div>
         </div>
       </li>
@@ -207,7 +187,7 @@ let drawHtml = () => {
       $id_review_list.insertAdjacentHTML('beforeend', temp_html);// @@.insertAdjacentHTML('beforeend', temp_html) : @@의 마지막 요소 뒤에 temp_html 삽입
       countStarScore += Number(value.comment_star_score);
     }
-  });
+  };
 
   countReview(count, countStarScore);  // 댓글 수 조회
 }
@@ -225,7 +205,7 @@ const countReview = (count, countStarScore) => {
     $id_avg_star_score.innerText = `측정 전`;
   }
   else {
-    $id_avg_star_score.innerText = `${(countStarScore / count).toFixed(1)} 점`;
+    $id_avg_star_score.innerText = `${(countStarScore / count).toFixed(1)}점`;
   }
 }
 
