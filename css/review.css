@@ -63,24 +63,8 @@
   cursor: pointer;
 }
 
-#star1 + .custom_star {
-  background-image: url("/contents/star1_n.png");
-}
-
-#star2 + .custom_star {
-  background-image: url("/contents/star1_n.png");
-}
-
-#star3 + .custom_star {
-  background-image: url("/contents/star1_n.png");
-}
-
-#star4 + .custom_star {
-  background-image: url("/contents/star1_n.png");
-}
-
-#star5 + .custom_star {
-  background-image: url("/contents/star1_n.png");
+.custom_star {
+  background-image: url("/contents/star_y.png");
 }
 
 #review_select_star_grade {
@@ -268,4 +252,8 @@
 
 .review_modal_etc * {
   margin-left: 5px;
+}
+
+.review_hidden {
+  display: none;
 }
