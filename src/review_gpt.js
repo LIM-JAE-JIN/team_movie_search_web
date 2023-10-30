@@ -5,68 +5,73 @@ const $id_submit_btn = document.getElementById("submit_btn");
 const $review_write_id = document.getElementById("review_write_id");
 const $review_write_pw = document.getElementById("review_write_pw");
 const $id_review_write_comment = document.getElementById("review_write_comment");
-
-// 별점
-const $star_grade_radio = document.getElementsByName("review_star_grade");
-const $id_select_star_grade = document.getElementById("review_select_star_grade");
 const $starLabels = document.querySelectorAll(".review_star_grade_wrapper label");
-
+const $id_select_star_grade = document.getElementById("review_select_star_grade");
 // 평균/합계
 const $id_count_review = document.getElementById("review_count_review");
 const $id_avg_star_score = document.getElementById("review_avg_star_score");
-
-// 영화 아이디 가져오기
-// URL에서 쿼리 문자열을 가져옵니다
-let queryString = window.location.search;
-// URLSearchParams 객체를 사용하여 쿼리 문자열을 파싱합니다
-let searchParams = new URLSearchParams(queryString);
-// detail_id 매개변수의 값을 가져옵니다
-let myMovieId = parseInt(searchParams.get("detail_id"));
-console.log(myMovieId);
-
 // 전역변수
 let commentsMap;
 let valuesIterator;
 let sortedCommentsMap;
 let localStorageData;
+let localStorageKeys;
 let count;
 let countStarScore;
 let target;
 let target_num;
+let myMovieId; // 영화 아이디
 
-// Dom요소 조회 후 실행되는 이벤트
 document.addEventListener("DOMContentLoaded", function () {
-  drawHtml(); //
-  savelocalStroage(); // submit 버튼 클릭 시
-  toggleEditBtn();
-  toggleEditModal();
-  deleteReview();
+  initialize();
 });
 
-// 별점 계산
+// 초기화 함수
+function initialize() {
+  getMovieIdFromURL(); // URL에서 영화 아이디 가져오기
+  drawHtml(); // HTML 그리기
+  addEventListeners(); // 이벤트 리스너 추가
+}
 
+// URL에서 영화 아이디 가져오기
+function getMovieIdFromURL() {
+  let queryString = window.location.search;// URL에서 쿼리 문자열을 가져옵니다
+  let searchParams = new URLSearchParams(queryString);// URLSearchParams 객체를 사용하여 쿼리 문자열을 파싱합니다
+  myMovieId = parseInt(searchParams.get("detail_id"));// detail_id 매개변수의 값을 가져옵니다
+}
 
+// 별점 이벤트 리스너 등록
 $starLabels.forEach((label, index) => {
   label.addEventListener("mouseover", () => {
-    // 선택 별점 초기화
-    for (let i = 4; i > index; i--) {
-      $starLabels[i].style.backgroundImage = 'url("../contents/star_n.png")';
-      $id_select_star_grade.innerText = index + 1;
-    }
-    // 선택 별점 표시
-    for (let i = 0; i <= index; i++) {
-      $starLabels[i].style.backgroundImage = 'url("../contents/star_y.png")';
-      $id_select_star_grade.innerText = index + 1;
-    }
-    const starScore = index + 1;
-    console.log(starScore);
+    handleStarMouseOver(index);
   });
 });
 
+// 별점 마우스 오버 처리
+function handleStarMouseOver(index) {
+  for (let i = 4; i > index; i--) {
+    $starLabels[i].style.backgroundImage = 'url("/contents/star_n.png")';
+    $id_select_star_grade.innerText = index + 1;
+  }
+  for (let i = 0; i <= index; i++) {
+    $starLabels[i].style.backgroundImage = 'url("/contents/star_y.png")';
+    $id_select_star_grade.innerText = index + 1;
+  }
+}
+
+// 선택된 별점 가져오기
+function getSelectedStarScore() {
+  for (const radio of $star_grade_radio) {
+    if (radio.checked) {
+      return radio.value;
+    }
+  }
+  return 0;
+}
+
 // 저장 시간 조회
 const currentTime = () => {
-  const currentDate = new Date();
-  return currentDate;
+  return new Date();
 }
 
 // 저장 시간 형식 변환
@@ -99,13 +104,7 @@ const savelocalStroage = () => {
     } else if (commentPw === "") {
       alert("비밀번호를 입력해주세요!");
     } else {
-      let starScore;
-      for (const radio of $star_grade_radio) {
-        if (radio.checked) {
-          starScore = radio.value;
-          break;
-        }
-      }
+      let starScore = getSelectedStarScore();
       // 입력 값들 객체에 넣기
       const comment = {
         movie_id: myMovieId,
@@ -127,7 +126,6 @@ const savelocalStroage = () => {
   });
 }
 
-let localStorageKeys;
 // localStroage 데이터 조회
 const loadLocalStorage = () => {
   localStorageData = {}; // localStorage에 저장된 값들을 저장할 객체
@@ -161,7 +159,6 @@ let drawHtml = () => {
   countStarScore = 0;
   count = 0;
   valuesIterator = sortedCommentsMap.values(); // map의 value 값으로 배열 생성
-
   // 모든 댓글 추가
   for (const value of valuesIterator) {
     if (value.movie_id === myMovieId) {
@@ -170,65 +167,60 @@ let drawHtml = () => {
       const originalDate = value.comment_currentDate;
       let temp_html = `
         <li class="review_comment_wrapper">
-        <div class="review_comment_box">
-          <div class="review_comment_box_header">
-            <div class="star_grade">
-              <div class="review_comment_star_grade_wrapper${count}">
-              <input type="radio" name="review_star_grade${count}" id="star1${count}" class="hidden_radio" value="1" />
-              <label for="star1" class="custom_star"></label>
-              <input type="radio" name="review_star_grade${count}" id="star2${count}" class="hidden_radio" value="2" />
-              <label for="star2" class="custom_star"></label>
-              <input type="radio" name="review_star_grade${count}" id="star3${count}" class="hidden_radio" value="3" />
-              <label for="star3" class="custom_star"></label>
-              <input type="radio" name="review_star_grade${count}" id="star4${count}" class="hidden_radio" value="4" />
-              <label for="star4" class="custom_star"></label>
-              <input type="radio" name="review_star_grade${count}" id="star5${count}" class="hidden_radio" value="5" />
-              <label for="star5" class="custom_star"></label>
-          </div>
-            </div>
-            <div class="review_edit_wrapper" >
-              <button class="review_edit_btn" data-target="review_modal_edit${count}">
-                <img src="./contents/review_btn.png" alt="Button Icon" />
-              </button>
-              <div class="review_edit_btn_wrapper" id="review_modal_edit${count}">
-                <button class="review_modal_delete_btn" id="review_delete_btn1${count}" data-target="review_etc_modal${count}"> 삭제하기 </button>
+          <div class="review_comment_box">
+            <div class="review_comment_box_header">
+              <div class="star_grade">
+                <div class="review_comment_star_grade_wrapper${count}">
+                  <input type="radio" name="review_star_grade${count}" id="star1${count}" class="hidden_radio" value="1" />
+                  <label for="star1" class="custom_star"></label>
+                  <!-- 별점 레이블들 -->
+                </div>
               </div>
-              <div class="review_modal_etc" id="review_etc_modal${count}">
-                <span>비밀번호</span><input type="password" id="review_edit_pw${count}" class="review_etc_input" />
-                <button id="submit_btn${count}" class="submit_btn delete_btn" type="button">확인</button>
+              <div class="review_edit_wrapper" >
+                <button class="review_edit_btn" data-target="review_modal_edit${count}">
+                  <img src="./contents/review_btn.png" alt="Button Icon" />
+                </button>
+                <div class="review_edit_btn_wrapper" id="review_modal_edit${count}">
+                  <button class="review_modal_delete_btn" id="review_delete_btn1${count}" data-target="review_etc_modal${count}"> 삭제하기 </button>
+                </div>
+                <div class="review_modal_etc" id="review_etc_modal${count}">
+                  <span>비밀번호</span><input type="password" id="review_edit_pw${count}" class="review_etc_input" />
+                  <button id="submit_btn${count}" class="submit_btn delete_btn" type="button">확인</button>
+                </div>
               </div>
             </div>
+            <p class="review_comment_text">${value.comment_comment}</p>
+            <div class="review_comment_box_bottom">
+              <span class="review_comment_id" id="review_comment_id${count}">${value.comment_id}</span>
+              <span class="review_comment_date" id="review_comment_date${count}">(${formattedTime(originalDate)})</span>
+              <span class="review_hidden" id="review_movie_id${count}">${value.comment_num}</span>
+              <div class="review_hidden" id="review_comment_pw${count}">${value.comment_pw}</div>
+            </div>
           </div>
-          <p class="review_comment_text">${value.comment_comment}</p>
-          <div class="review_comment_box_bottom">
-            <span class="review_comment_id" id="review_comment_id${count}">${value.comment_id}</span>
-            <span class="review_comment_date" id="review_comment_date${count}">(${formattedTime(originalDate)})</span>
-            <span class="review_hidden" id="review_movie_id${count}">${value.comment_num}</span>
-            <div class="review_hidden" id="review_comment_pw${count}">${value.comment_pw}</div>
-          </div>
-        </div>
-      </li>
-    `;
+        </li>
+      `;
 
       $id_review_list.insertAdjacentHTML("beforeend", temp_html); // @@.insertAdjacentHTML('beforeend', temp_html) : @@의 마지막 요소 뒤에 temp_html 삽입
       countStarScore += Number(value.comment_star_score);
+      displayStarRating(count);
     }
-
-    // 별점 표시
-    const $starLabels = document.querySelectorAll(`.review_comment_star_grade_wrapper${count} label`);
-    const starScore = value.comment_star_score;
-    $starLabels.forEach(() => {
-      for (let i = 0; i <= 4; i++) {
-        $starLabels[i].style.pointerEvents = "none";
-      }
-      // 선택 별점 초기화
-      for (let i = 4; i >= starScore; i--) {
-        $starLabels[i].style.backgroundImage = 'url("../contents/star_n.png")';
-      }
-    });
   }
+  countReview(count, countStarScore);
+}
 
-  countReview(count, countStarScore); // 댓글 수 조회
+// 별점 표시
+function displayStarRating(count) {
+  const $starLabels = document.querySelectorAll(`.review_comment_star_grade_wrapper${count} label`);
+  const starScore = value.comment_star_score;
+  $starLabels.forEach(() => {
+    for (let i = 0; i <= 4; i++) {
+      $starLabels[i].style.pointerEvents = "none";
+    }
+    // 선택 별점 초기화
+    for (let i = 0; i < starScore; i++) {
+      $starLabels[i].style.backgroundImage = 'url("/contents/star_y.png")';
+    }
+  });
 }
 
 // 댓글 수 조회
@@ -237,8 +229,8 @@ const countReview = (count, countStarScore) => {
   if (count === 0) {
     // 댓글이 없을 경우
     let temp_html = `
-    <div class="reivew_count_zero">첫 리뷰를 남겨주세요😁</div>
-`;
+      <div class="reivew_count_zero">첫 리뷰를 남겨주세요😁</div>
+    `;
     $id_review_list.insertAdjacentHTML("beforeend", temp_html);
     $id_avg_star_score.innerText = "측정 전";
   } else {
@@ -254,13 +246,11 @@ const toggleEditBtn = () => {
       console.log("... 버튼이 클릭되었습니다.");
       target = button.getAttribute("data-target");
       const modal = document.getElementById(target);
-
       if (modal.style.display === "none" || modal.style.display === "") {
         modal.style.display = "block"; // 표시
       } else {
         modal.style.display = "none"; // 숨김
       }
-
       // 계정 입력 modal 숨김
       const target_btn = target.replace("review_modal_edit", "review_etc_modal");
       const $review_edit_btn = document.getElementById(target_btn);
@@ -272,7 +262,6 @@ const toggleEditBtn = () => {
 // 댓글 삭제 modal 토글
 const toggleEditModal = () => {
   const $modal_edit_btn = document.querySelectorAll(".review_modal_delete_btn");
-
   $modal_edit_btn.forEach((button) => {
     button.addEventListener("click", () => {
       console.log("삭제하기 버튼이 클릭되었습니다.");
@@ -290,9 +279,8 @@ const toggleEditModal = () => {
 }
 
 // 댓글 삭제
-const deleteReview = () => {
+function deleteReview() {
   const $buttons = document.querySelectorAll(".delete_btn");
-
   $buttons.forEach((button) => {
     button.addEventListener("click", () => {
       // 선택한 댓글의 Key 가져오기
@@ -303,16 +291,14 @@ const deleteReview = () => {
       const select_pw = target.replace("review_etc_modal", "review_comment_pw");
       const $review_select_pw = document.getElementById(select_pw);
       const input_select_pw = $review_select_pw.innerHTML;
-
       // 작성한 비밀번호 가져오기
       const target_pw = target.replace("review_etc_modal", "review_edit_pw");
       const $review_edit_pw = document.getElementById(target_pw);
       const input_edit_pw = $review_edit_pw.value;
 
       if (input_select_pw != input_edit_pw) {
-        alert("비밀번호가 다르잖습니까!!");
+        alert("비밀번호가 다릅니다!!");
       } else {
-        // console.log("삭제 버튼이 클릭되었습니다.");
         if (input_select_pw === input_edit_pw) {
           localStorage.removeItem(input_movie_id);
           alert("삭제가 완료되었습니다~!");
