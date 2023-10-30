@@ -114,7 +114,7 @@ const searchedMoive = (movieListAll) => {
         class="img_thumb"
         alt="image"
       />
-      <span class="rank_num">${movie.vote_average}</span>
+      <span class="rank_num">${movie.vote_average.toFixed(1)}</span>
     </div>
   </a>
 </div>
