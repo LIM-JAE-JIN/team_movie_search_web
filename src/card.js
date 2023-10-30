@@ -5,6 +5,7 @@ export const movies = await fetchMovieData();
 
 export const generateMovieCards = async (movies) => {
   const cardList = document.querySelector("#card_wrapAllList");
+  movies.sort((a, b) => b.vote_count - a.vote_count);
   cardList.innerHTML = movies
     .map(
       (movie) => `
@@ -17,7 +18,7 @@ export const generateMovieCards = async (movies) => {
                     class="img_thumb"
                     alt="image"
                   />
-                  <span class="rank_num">${movie.vote_average}</span>
+                  <span class="rank_num">${movie.vote_average.toFixed(1)}</span>
                 </div>
               </a>
             </div>
@@ -60,7 +61,6 @@ export const moreView = () => {
   const movieCard = document.querySelectorAll(".card_li");
   currentCount = currentCount + loadCount;
   movieCard.forEach((card, index) => {
-    console.log(index);
     const movieCount = index + 1;
     if (movieCount <= currentCount) {
       card.style.display = "block";
@@ -71,5 +71,4 @@ export const moreView = () => {
   if (currentCount >= movies.length) {
     loadMoreButton.style.display = "none";
   }
-  console.log(currentCount);
 };
