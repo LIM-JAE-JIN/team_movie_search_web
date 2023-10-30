@@ -77,6 +77,32 @@
   z-index: -1;
 }
 
+.rank_mainBoardImg::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  height: 100%;
+  width: 50%;
+  z-index: -1;
+  background: linear-gradient(to right, rgba(0, 0, 0, 0.9), transparent);
+  left: 0;
+}
+
+.rank_mainBoardImg::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  height: 100%;
+  width: 50%;
+  z-index: -1;
+  background: linear-gradient(to left, rgba(0, 0, 0, 0.9), transparent);
+  right: 0;
+}
+
+.image-change-animation {
+  transition: background-image 0.3s ease-in-out; /* 배경 이미지 변경에 대한 애니메이션 설정 */
+}
+
 .mainRankCnt {
   width: 1120px;
   height: 80%;
