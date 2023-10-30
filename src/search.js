@@ -64,6 +64,7 @@ $rankWrap.addEventListener("click", (event) => {
 
 // 클릭 시 컨텐츠 변경하는 함수 
 export const changeCnt = (movie) => { // movie 배열을 매개변수로 받는 함수
+
   $rank_mainBoard.innerHTML = `
   <div class="rank_mainBoardImg" style="background-image: url('https://image.tmdb.org/t/p/original${movie.backdrop_path}")></div>
 
@@ -75,7 +76,9 @@ export const changeCnt = (movie) => { // movie 배열을 매개변수로 받는 
     <a href="./detail.html?detail_id=${movie.id}">
       <button class="mainRankBtn">상세보기</button>
     </a>
-  </div>`
+  </div>`;
+
+
 };
 
 
@@ -122,6 +125,7 @@ const searchedMoive = (movieListAll) => {
 </div>
 </li>`
   ).join("");
+  // $searchInput.focus();
 };
 
 
