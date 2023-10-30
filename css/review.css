@@ -64,7 +64,7 @@
 }
 
 .custom_star {
-  background-image: url("/contents/star_y.png");
+  background-image: url("../contents/star_y.png");
 }
 
 #review_select_star_grade {
