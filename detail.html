@@ -64,60 +64,64 @@
 
     <!-- review -->
     <hr style="margin-top: 30px" />
-    <div class="review">
+    <div class="review_container">
       <!-- review 요약 -->
       <div class="review_title_wrapper">
+        <span class="review_title_text">기대 평점</span>
+        <span id="review_avg_star_score" class="review_avg_star_score"><!-- 별점 평균 점수 --></span>
         <span id="review_count_review" class="review_count_review"><!-- 댓글 작성 인원--></span>
       </div>
-
       <!-- /review 요약 -->
-      <!-- 별점 -->
-      <div class="review_star_grade_container"></div>
-      <!-- /별점 -->
-      <!-- review 작성/조회-->
-      <div class="review_container">
-        <!-- review 작성 -->
-        <div class="review_write_wrapper">
-          <div class="review_write_comment_wrapper">
-            <!-- 그룹화 -->
-            <fieldset>
-              <!-- 댓글 작성란 -->
-              <!-- <div id="review_write_comment" class="review_write_comment"> -->
-              <textarea
-                id="review_write_comment"
-                class="review_write_comment"
-                rows="5"
-                placeholder="댓글을 작성해주세요."
-                spellcheck="false"
-              ></textarea>
-              <!-- </div> -->
-              <!-- /댓글 작성란 -->
-            </fieldset>
-            <!-- 그룹화 -->
+
+      <!-- review 작성 -->
+      <div class="review_write_container">
+        <!-- 별점 / 댓글 -->
+        <div class="review_write_comment_wrapper">
+          <!-- 별점 -->
+          <div class="review_star_grade_wrapper">
+            <input type="radio" name="review_star_grade" id="star1" class="hidden_radio" value="1" checked />
+            <label for="star1" class="custom_star"></label
+            ><input type="radio" name="review_star_grade" id="star2" class="hidden_radio" value="2" />
+            <label for="star2" class="custom_star"></label>
+            <input type="radio" name="review_star_grade" id="star3" class="hidden_radio" value="3" />
+            <label for="star3" class="custom_star"></label>
+            <input type="radio" name="review_star_grade" id="star4" class="hidden_radio" value="4" />
+            <label for="star4" class="custom_star"></label>
+            <input type="radio" name="review_star_grade" id="star5" class="hidden_radio" value="5" checked />
+            <label for="star5" class="custom_star"></label>
+            <span id="review_select_star_grade">5</span>
           </div>
-          <div class="review_write_etc_wrapper">
-            <span>아이디</span><input id="review_write_id" class="review_etc_input" /> <span>비밀번호</span
-            ><input type="password" id="review_write_pw" class="review_etc_input" />
-            <button id="submit_btn" class="submit_btn" type="button">등록</button>
+          <hr class="review_star_line"/>
+          <!-- /별점 -->
+          <!-- 댓글 작성 -->
+          <textarea
+            id="review_write_comment"
+            class="review_write_comment"
+            rows="5"
+            placeholder="댓글을 작성해주세요."
+            spellcheck="false"
+          ></textarea>
+          <!-- /댓글 작성 -->
           </div>
         </div>
-        <!-- review 작성 -->
-        <hr class="review_comment_line" />
-        <!-- review list 조회 -->
-        <ul id="review_list" class="review_list">
-          <!-- <li class="review_comment_wrapper">
-            <div class="review_comment_box">
-              <p class="review_comment_text">${value.comment_comment}</p>
-              <div class="review_comment_box_bottom">
-                <span class="review_comment_id" id="review_comment_id${count}">${value.comment_id}</span>
-                <span class="review_comment_date" id="review_comment_pw${count}">${value.comment_currentDate}</span>
-              </div>
-            </div>
-          </li> -->
-        </ul>
-        <!-- /review list 조회 -->
+        <!-- 별점 / 댓글 -->
+        <!-- 계정 -->
+        <div class="review_write_etc_wrapper">
+          <span>아이디</span><input id="review_write_id" class="review_etc_input" /> <span>비밀번호</span
+          ><input type="password" id="review_write_pw" class="review_etc_input" />
+          <button id="submit_btn" class="submit_btn" type="button">등록</button>
+        </div>
+        <!-- /계정 -->
       </div>
-      <!-- /review 작성/조회 -->
+      <!-- /review 작성 -->
+      <hr class="review_comment_line" />
+      <!-- review list 조회 -->
+      <div class="review_list_container">
+        <ul id="review_list" class="review_list">
+          
+        </ul>
+      </div>
+      <!-- /review list 조회 -->
     </div>
     <!-- /review -->
     <script type="module" src="./src/review.js"></script>
