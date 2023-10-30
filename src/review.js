@@ -299,6 +299,7 @@ const toggleEditModal = () => {
   });
 };
 
+// 이얍~~
 // 댓글 삭제
 const deleteReview = () => {
   const $buttons = document.querySelectorAll(".delete_btn");
